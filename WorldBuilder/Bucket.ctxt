@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Bucket
+comment0.text=\r\n\ A\ bucket\ of\ water.\r\n\ \r\n\ @author\ bdahlem\r\n\ @version\ 1.0\r\n
+comment1.params=
+comment1.target=void\ act()
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ Bucket\ wants\ to\ do.\ Apparently\ Buckets\ don't\ want\ to\r\n\ do\ much.\r\n
+numComments=2

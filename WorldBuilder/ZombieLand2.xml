@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scenario>
+   <world height="9" width="10">
+      <initial>
+         <object classname="Brain">
+            <location dir="0" x="1" y="8"/>
+            <location dir="0" x="1" y="7"/>
+            <location dir="0" x="1" y="3"/>
+            <location dir="0" x="1" y="2"/>
+            <location dir="0" x="3" y="7"/>
+            <location dir="0" x="3" y="6"/>
+            <location dir="0" x="1" y="5"/>
+            <location dir="0" x="1" y="6"/>
+            <location dir="0" x="1" y="4"/>
+            <location dir="0" x="1" y="1"/>
+            <location dir="0" x="1" y="0"/>
+            <location dir="0" x="2" y="8"/>
+            <location dir="0" x="3" y="8"/>
+            <location dir="0" x="4" y="7"/>
+            <location dir="0" x="4" y="6"/>
+            <location dir="0" x="4" y="5"/>
+            <location dir="0" x="4" y="4"/>
+            <location dir="0" x="4" y="3"/>
+            <location dir="0" x="5" y="8"/>
+            <location dir="0" x="4" y="8"/>
+            <location dir="0" x="5" y="7"/>
+            <location dir="0" x="6" y="8"/>
+            <location dir="0" x="6" y="7"/>
+            <location dir="0" x="6" y="6"/>
+            <location dir="0" x="6" y="5"/>
+            <location dir="0" x="6" y="4"/>
+            <location dir="0" x="6" y="3"/>
+            <location dir="0" x="6" y="2"/>
+            <location dir="0" x="6" y="1"/>
+            <location dir="0" x="7" y="2"/>
+            <location dir="0" x="7" y="3"/>
+            <location dir="0" x="7" y="4"/>
+            <location dir="0" x="7" y="5"/>
+            <location dir="0" x="7" y="6"/>
+            <location dir="0" x="7" y="7"/>
+            <location dir="0" x="7" y="8"/>
+            <location dir="0" x="8" y="4"/>
+            <location dir="0" x="8" y="5"/>
+            <location dir="0" x="8" y="6"/>
+            <location dir="0" x="8" y="7"/>
+            <location dir="0" x="8" y="8"/>
+            <location dir="0" x="9" y="5"/>
+            <location dir="0" x="9" y="6"/>
+            <location dir="0" x="9" y="7"/>
+            <location dir="0" x="9" y="8"/>
+         </object>
+         <object classname="MyZombie">
+            <location dir="0" x="0" y="8"/>
+         </object>
+      </initial>
+      <objective>
+        <object classname="Brain">
+            <location dir="0" x="1" y="8"/>
+            <location dir="0" x="1" y="7"/>
+            <location dir="0" x="1" y="3"/>
+            <location dir="0" x="1" y="2"/>
+            <location dir="0" x="3" y="7"/>
+            <location dir="0" x="3" y="6"/>
+            <location dir="0" x="1" y="5"/>
+            <location dir="0" x="1" y="6"/>
+            <location dir="0" x="1" y="4"/>
+            <location dir="0" x="1" y="1"/>
+            <location dir="0" x="1" y="0"/>
+            <location dir="0" x="2" y="8"/>
+            <location dir="0" x="3" y="8"/>
+            <location dir="0" x="4" y="7"/>
+            <location dir="0" x="4" y="6"/>
+            <location dir="0" x="4" y="5"/>
+            <location dir="0" x="4" y="4"/>
+            <location dir="0" x="4" y="3"/>
+            <location dir="0" x="5" y="8"/>
+            <location dir="0" x="4" y="8"/>
+            <location dir="0" x="5" y="7"/>
+            <location dir="0" x="6" y="8"/>
+            <location dir="0" x="6" y="7"/>
+            <location dir="0" x="6" y="6"/>
+            <location dir="0" x="6" y="5"/>
+            <location dir="0" x="6" y="4"/>
+            <location dir="0" x="6" y="3"/>
+            <location dir="0" x="6" y="2"/>
+            <location dir="0" x="6" y="1"/>
+            <location dir="0" x="7" y="2"/>
+            <location dir="0" x="7" y="3"/>
+            <location dir="0" x="7" y="4"/>
+            <location dir="0" x="7" y="5"/>
+            <location dir="0" x="7" y="6"/>
+            <location dir="0" x="7" y="7"/>
+            <location dir="0" x="7" y="8"/>
+            <location dir="0" x="8" y="4"/>
+            <location dir="0" x="8" y="5"/>
+            <location dir="0" x="8" y="6"/>
+            <location dir="0" x="8" y="7"/>
+            <location dir="0" x="8" y="8"/>
+            <location dir="0" x="9" y="5"/>
+            <location dir="0" x="9" y="6"/>
+            <location dir="0" x="9" y="7"/>
+            <location dir="0" x="9" y="8"/>
+         </object>
+         <object classname="MyZombie">
+            <location x="1" y="0">
+                <call name="hasWon" value="true"/>
+            </location>
+         </object>
+      </objective>
+   </world>
+</scenario>

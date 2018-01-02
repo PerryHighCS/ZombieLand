@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scenario>
+   <world height="5" width="3">
+      <initial>
+         <object classname="Wall">
+            <location dir="0" x="0" y="1"/>
+            <location dir="0" x="1" y="1"/>
+            <location dir="0" x="2" y="1"/>
+            <location dir="0" x="2" y="3"/>
+            <location dir="0" x="1" y="3"/>
+            <location dir="0" x="0" y="3"/>
+         </object>
+         <object classname="Brain">
+            <location count="10" dir="0" x="1" y="2"/>
+            <location count="99" dir="0" x="1" y="4"/>
+         </object>
+         <object classname="ZombieGoal">
+            <location dir="0" x="2" y="0"/>
+            <location dir="0" x="2" y="2"/>
+            <location dir="0" x="2" y="4"/>
+         </object>
+         <object classname="MyZombie">
+            <location dir="0" x="0" y="0"/>
+            <location dir="0" x="0" y="2"/>
+            <location dir="0" x="0" y="4"/>
+         </object>
+      </initial>
+      <objective>
+         <object classname="Wall">
+            <location dir="0" x="0" y="1"/>
+            <location dir="0" x="1" y="1"/>
+            <location dir="0" x="2" y="1"/>
+            <location dir="0" x="2" y="3"/>
+            <location dir="0" x="1" y="3"/>
+            <location dir="0" x="0" y="3"/>
+         </object>
+         <object classname="ZombieGoal">
+            <location dir="0" x="2" y="0"/>
+            <location dir="0" x="2" y="2"/>
+            <location dir="0" x="2" y="4"/>
+         </object>
+         <object classname="MyZombie">
+            <location x="2" y="0"/>
+            <location x="2" y="2"/>
+            <location x="2" y="4"/>
+         </object>
+      </objective>
+   </world>
+</scenario>

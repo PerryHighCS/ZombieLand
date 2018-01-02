@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=MyZombie
+comment0.text=\r\n\ Help\ Karl\ collect\ all\ of\ the\ brains.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=void\ plan()
+comment1.text=\r\n\ Karl's\ planned\ out\ actions\ to\ build\ the\ triangle\ of\ brains\ in\ front\ of\ him.\r\n
+numComments=2

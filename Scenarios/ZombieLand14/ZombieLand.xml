@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scenario>
+   <world height="10" width="10">
+      <initial>
+         <object classname="Wall">
+            <location dir="0" x="1" y="1"/>
+            <location dir="0" x="1" y="2"/>
+            <location dir="0" x="1" y="3"/>
+            <location dir="0" x="1" y="4"/>
+            <location dir="0" x="1" y="5"/>
+            <location dir="0" x="1" y="6"/>
+            <location dir="0" x="1" y="7"/>
+            <location dir="0" x="1" y="8"/>
+            <location dir="0" x="2" y="8"/>
+            <location dir="0" x="3" y="8"/>
+            <location dir="0" x="4" y="8"/>
+            <location dir="0" x="5" y="8"/>
+            <location dir="0" x="6" y="8"/>
+            <location dir="0" x="7" y="8"/>
+            <location dir="0" x="8" y="8"/>
+            <location dir="0" x="8" y="7"/>
+            <location dir="0" x="8" y="6"/>
+            <location dir="0" x="8" y="5"/>
+            <location dir="0" x="8" y="4"/>
+            <location dir="0" x="8" y="3"/>
+            <location dir="0" x="8" y="2"/>
+            <location dir="0" x="8" y="1"/>
+            <location dir="0" x="7" y="1"/>
+            <location dir="0" x="6" y="1"/>
+            <location dir="0" x="5" y="1"/>
+            <location dir="0" x="4" y="1"/>
+            <location dir="0" x="3" y="1"/>
+            <location dir="0" x="2" y="1"/>
+            <location dir="0" x="3" y="3"/>
+            <location dir="0" x="4" y="3"/>
+            <location dir="0" x="5" y="3"/>
+            <location dir="0" x="6" y="3"/>
+            <location dir="0" x="6" y="4"/>
+            <location dir="0" x="6" y="5"/>
+            <location dir="0" x="6" y="6"/>
+            <location dir="0" x="5" y="6"/>
+            <location dir="0" x="4" y="6"/>
+            <location dir="0" x="3" y="6"/>
+            <location dir="0" x="3" y="5"/>
+            <location dir="0" x="3" y="4"/>
+         </object>
+	 <object classname="Brain">
+            <location dir="0" x="1" y="0" count="3"/>
+            <location dir="0" x="2" y="0"/>
+            <location dir="0" x="3" y="0" count="5"/>
+            <location dir="0" x="4" y="0" count="2"/>
+            <location dir="0" x="5" y="0"/>
+            <location dir="0" x="6" y="0" count="3"/>
+            <location dir="0" x="7" y="0"/>
+            <location dir="0" x="8" y="0" count="4"/>
+            <location dir="0" x="9" y="0"/>
+            <location dir="0" x="9" y="1"/>
+            <location dir="0" x="9" y="2" count="3"/>
+            <location dir="0" x="9" y="3"/>
+            <location dir="0" x="9" y="4" count="2"/>
+            <location dir="0" x="9" y="5"/>
+            <location dir="0" x="9" y="6"/>
+            <location dir="0" x="9" y="7" count="5"/>
+            <location dir="0" x="9" y="8"/>
+
+	    <location dir="0" x="3" y="2"/>
+            <location dir="0" x="4" y="2" count="3"/>
+            <location dir="0" x="5" y="2"/>
+            <location dir="0" x="6" y="2" count="5"/>
+            <location dir="0" x="7" y="3"/>
+            <location dir="0" x="7" y="4" count="2"/>
+            <location dir="0" x="7" y="5"/>
+            <location dir="0" x="7" y="6" count="4"/>
+
+            <location dir="0" x="5" y="4" count="30"/>
+         </object>
+         <object classname="ZombieGoal">
+            <location dir="0" x="9" y="9"/>
+            <location dir="0" x="7" y="7"/>
+            <location dir="0" x="5" y="5"/>
+         </object>
+         <object classname="MyZombie">
+            <location dir="0" x="0" y="0"/>
+            <location dir="0" x="2" y="2"/>
+            <location dir="0" x="4" y="4"/>
+         </object>
+      </initial>
+      <objective>
+         <object classname="Wall">
+            <location dir="0" x="1" y="1"/>
+            <location dir="0" x="1" y="2"/>
+            <location dir="0" x="1" y="3"/>
+            <location dir="0" x="1" y="4"/>
+            <location dir="0" x="1" y="5"/>
+            <location dir="0" x="1" y="6"/>
+            <location dir="0" x="1" y="7"/>
+            <location dir="0" x="1" y="8"/>
+            <location dir="0" x="2" y="8"/>
+            <location dir="0" x="3" y="8"/>
+            <location dir="0" x="4" y="8"/>
+            <location dir="0" x="5" y="8"/>
+            <location dir="0" x="6" y="8"/>
+            <location dir="0" x="7" y="8"/>
+            <location dir="0" x="8" y="8"/>
+            <location dir="0" x="8" y="7"/>
+            <location dir="0" x="8" y="6"/>
+            <location dir="0" x="8" y="5"/>
+            <location dir="0" x="8" y="4"/>
+            <location dir="0" x="8" y="3"/>
+            <location dir="0" x="8" y="2"/>
+            <location dir="0" x="8" y="1"/>
+            <location dir="0" x="7" y="1"/>
+            <location dir="0" x="6" y="1"/>
+            <location dir="0" x="5" y="1"/>
+            <location dir="0" x="4" y="1"/>
+            <location dir="0" x="3" y="1"/>
+            <location dir="0" x="2" y="1"/>
+            <location dir="0" x="3" y="3"/>
+            <location dir="0" x="4" y="3"/>
+            <location dir="0" x="5" y="3"/>
+            <location dir="0" x="6" y="3"/>
+            <location dir="0" x="6" y="4"/>
+            <location dir="0" x="6" y="5"/>
+            <location dir="0" x="6" y="6"/>
+            <location dir="0" x="5" y="6"/>
+            <location dir="0" x="4" y="6"/>
+            <location dir="0" x="3" y="6"/>
+            <location dir="0" x="3" y="5"/>
+            <location dir="0" x="3" y="4"/>
+         </object>
+         <object classname="ZombieGoal">
+            <location dir="0" x="9" y="9"/>
+            <location dir="0" x="7" y="7"/>
+            <location dir="0" x="5" y="5"/>
+         </object>
+         <object classname="MyZombie">
+            <location x="9" y="9"/>
+            <location x="7" y="7"/>
+            <location x="5" y="5"/>
+         </object>
+      </objective>
+   </world>
+</scenario>

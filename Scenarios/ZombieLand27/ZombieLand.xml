@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scenario>
+   <world height="2" width="3">
+      <initial>
+         <object classname="MyZombie">
+            <location brains="999" dir="0" x="0" y="0"/>
+         </object>
+      </initial>
+      <objective>
+         <object classname="MyZombie">
+            <location x="0" y="0">
+               <call name="hasWon" value="true"/>
+            </location>
+         </object>
+         <object classname="Brain">
+            <location x="1" y="0"/>
+            <location x="0" y="1"/>
+            <location x="2" y="1"/>
+         </object>
+      </objective>
+   </world>
+</scenario>

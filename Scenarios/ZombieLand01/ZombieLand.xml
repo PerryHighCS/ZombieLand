@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scenario>
+   <world height="1" width="5">
+      <initial>
+         <object classname="ZombieGoal">
+            <location dir="0" x="4" y="0"/>
+         </object>
+         <object classname="MyZombie">
+            <location dir="0" x="0" y="0"/>
+         </object>
+      </initial>
+      <objective>
+         <object classname="ZombieGoal">
+            <location dir="0" x="4" y="0"/>
+         </object>
+         <object classname="MyZombie">
+            <location dir="0" x="4" y="0"/>
+         </object>
+      </objective>
+   </world>
+</scenario>

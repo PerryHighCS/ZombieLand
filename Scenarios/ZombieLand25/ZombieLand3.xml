@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scenario>
+   <world height="5" width="5">
+      <initial>
+         <object classname="MyZombie">
+            <location dir="0" x="0" y="4"/>
+         </object>
+      </initial>
+      <objective>
+         <object classname="MyZombie">
+            <location x="0" y="4">
+               <call name="hasWon" value="true"/>
+            </location>
+         </object>
+      </objective>
+   </world>
+</scenario>

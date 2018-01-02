@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=PassCounter
+comment0.text=\r\n\ A\ ZombieDetector\ that\ counts\ how\ many\ time\ a\ zombie\ has\ stepped\ on\ it.\r\n\ \r\n\ @author\ bdahlem\ \r\n\ @version\ 1.0\r\n
+comment1.params=display
+comment1.target=PassCounter(boolean)
+comment1.text=\r\n\ Create\ a\ ZombieDetector\ that\ shows\ the\ number\ of\ times\ a\ zombie\ has\r\n\ stepped\ on\ it\r\n
+comment2.params=
+comment2.target=void\ detected()
+comment2.text=\r\n\ When\ a\ zombie\ is\ detected,\ increment\ the\ pass\ counter.\r\n
+comment3.params=
+comment3.target=int\ getPasses()
+comment3.text=\r\n\ Retrieve\ the\ number\ of\ times\ a\ zombie\ has\ stepped\ on\ the\ detector.\r\n
+comment4.params=display
+comment4.target=void\ displayPasses(boolean)
+comment4.text=\r\n\ Turn\ on\ the\ counter\ display\r\n
+comment5.params=
+comment5.target=void\ showCount()
+comment5.text=\r\n\ Update\ the\ counter\ display\r\n
+numComments=6

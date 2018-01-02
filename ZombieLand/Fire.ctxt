@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Fire
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Fire\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Fire()
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Animate\ the\ fire\r\n
+comment3.params=
+comment3.target=void\ checkForZombies()
+comment3.text=\r\n\ See\ if\ a\ zombie\ has\ wandered\ into\ this\ fire,\ burn\ it\ up\ if\ so.\r\n
+comment4.params=
+comment4.target=void\ checkForWater()
+comment4.text=\r\n\ See\ if\ a\ bucket\ of\ water\ has\ been\ pushed\ into\ this\ fire,\ burn\ it\ up\ and\r\n\ extinguish\ if\ so.\r\n
+comment5.params=
+comment5.target=void\ preloadFrames()
+comment5.text=\r\n\ Load\ all\ of\ the\ fire\ and\ smoke\ frames\ for\ better\ animation.\r\n
+comment6.params=name
+comment6.target=greenfoot.GreenfootImage[]\ loadFrames(java.lang.String)
+comment6.text=\r\n\ Create\ and\ fill\ an\ array\ of\ Greenfoot\ images\ by\ loading\ the\ files\ with\r\n\ a\ given\ name\ followed\ by\ frame\ numbers\r\n
+numComments=7
