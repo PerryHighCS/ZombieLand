@@ -48,21 +48,17 @@ public class WorldBuilder extends World
      */
     public WorldBuilder()
     {    
-        this(5, 5, 0, null, null);
+        this(5, 5, 0, null);
     }
 
     public WorldBuilder(int horizsize, int vertsize, int worldIndex,
-                        WorldBuilder[] situation, ToolPalette newtp)
+                        WorldBuilder[] situation)
     {
         // Create a new world builder
         super(horizsize, vertsize, 64); 
         
-        if (newtp == null) {
-            tp = new ToolPalette();
-        }
-        else {
-            tp = newtp;
-        }
+        tp = ToolPalette.getToolPalette();
+
         tp.setWorld(this);
         tp.setWorldSize(horizsize, vertsize);
         
@@ -73,7 +69,7 @@ public class WorldBuilder extends World
         if (situation == null) {
             situation = new WorldBuilder[2];
             situation[worldIndex] = this;
-            situation[1 - worldIndex] = new WorldBuilder(horizsize, vertsize, 1 - worldIndex, situation, tp);
+            situation[1 - worldIndex] = new WorldBuilder(horizsize, vertsize, 1 - worldIndex, situation);
         }
         else {
             this.situation = situation;
@@ -293,8 +289,8 @@ public class WorldBuilder extends World
             int height = Integer.parseInt(root.getAttribute("height"));
             
             situation = new WorldBuilder[2];
-            situation[0] = new WorldBuilder(width, height, 0, situation, tp);
-            situation[1] = new WorldBuilder(width, height, 1, situation, tp);
+            situation[0] = new WorldBuilder(width, height, 0, situation);
+            situation[1] = new WorldBuilder(width, height, 1, situation);
             
             loadWorld((Element)root.getElementsByTagName("initial").item(0), cl, situation[0], true);
             loadWorld((Element)root.getElementsByTagName("objective").item(0), cl, situation[1], false);
@@ -411,7 +407,7 @@ public class WorldBuilder extends World
             WorldBuilder oldWorld = situation[i];
             
             // Create a new world with the specified size
-            WorldBuilder w = new WorldBuilder(xsize, ysize, i, situation, tp);
+            WorldBuilder w = new WorldBuilder(xsize, ysize, i, situation);
             
             // move all actors from this world to the new world
             for (Actor a : oldWorld.getObjects(Actor.class))
