@@ -12,6 +12,7 @@ import java.awt.event.*;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.net.URL;
 
 public class ToolPalette extends JFrame
 {   
@@ -208,7 +209,21 @@ public class ToolPalette extends JFrame
         // Allow the user to choose a file to save to
         JFileChooser fc = new JFileChooser();
         fc.setFileFilter(new FileNameExtensionFilter("XML Files (*.xml)", "xml"));
-        if (lastPath != null) {
+        if (lastPath == null) {
+            // Set the default directory to the parent folder of the "WorldBuilder"
+            URL location =  this.getClass().getResource(this.getClass().getName() + ".java");
+            File theFile = null;
+            try {
+                theFile = new File(location.toURI());
+                if (theFile.getParent() != null) {
+                    theFile = theFile.getParentFile().getParentFile();
+                }
+            }
+            catch (Exception e) {}
+            
+            fc.setCurrentDirectory(theFile);
+        }
+        else {          
             fc.setSelectedFile(lastPath);
         }
         int retrival = fc.showSaveDialog(null);
@@ -228,10 +243,24 @@ public class ToolPalette extends JFrame
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // Allow the user to choose the file to load
         JFileChooser fc = new JFileChooser();
-        fc.setFileFilter(new FileNameExtensionFilter("XML Files (*.xml)", "xml"));
-        if (lastPath != null) {
+        if (lastPath == null) {
+            // Set the default directory to the parent folder of the "WorldBuilder"
+            URL location =  this.getClass().getResource(this.getClass().getName() + ".java");
+            File theFile = null;
+            try {
+                theFile = new File(location.toURI());
+                if (theFile.getParent() != null) {
+                    theFile = theFile.getParentFile().getParentFile();
+                }
+            }
+            catch (Exception e) {}
+            
+            fc.setCurrentDirectory(theFile);
+        }
+        else {          
             fc.setSelectedFile(lastPath);
         }
+        fc.setFileFilter(new FileNameExtensionFilter("XML Files (*.xml)", "xml"));
         int retrival = fc.showOpenDialog(null);
         
         // Tell the worldbuilder to load the selected world
