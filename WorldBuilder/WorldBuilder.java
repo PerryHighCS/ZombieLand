@@ -47,8 +47,16 @@ public class WorldBuilder extends World
      * 
      */
     public WorldBuilder()
-    {    
-        this(5, 5, 0, null);
+    {           
+        this (5, 5, 0, null);
+        File defaultFile = null;
+        try {
+            defaultFile = new File(this.getClass().getResource("ZombieLand.xml").toURI());
+            loadWorldXML(defaultFile);
+        }
+        catch (Exception e) {
+            System.err.println("Failed to load default ZombieLand.xml");
+        }
     }
 
     public WorldBuilder(int horizsize, int vertsize, int worldIndex,
