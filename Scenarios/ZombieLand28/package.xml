@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<scenario name="ZombieLand 28 - Corridors">
+<scenario name="ZombieLand 28 - Corridors of Recursion">
   <Files>
     <File ref="Brain.class" source="BASE"/>
     <File ref="doc\allclasses-frame.html" source="BASE"/>
@@ -23,6 +23,7 @@
     <File ref="doc\ZombieDetector.html" source="BASE"/>
     <File ref="doc\ZombieGoal.html" source="BASE"/>
     <File ref="doc\ZombieLand.html" source="BASE"/>
+    <File ref="Fire.class" source="BASE"/>
     <File ref="images\brain.png" source="BASE"/>
     <File ref="images\brick.jpg" source="BASE"/>
     <File ref="images\bucket.png" source="BASE"/>
@@ -101,5 +102,7 @@
     <File ref="ZombieLand1.xml" source="SCENARIO"/>
     <File ref="ZombieLand2.class" source="BASE"/>
     <File ref="ZombieLand2.xml" source="SCENARIO"/>
+    <File ref="ZombieLand3.class" source="BASE"/>
+    <File ref="ZombieLand3.xml" source="SCENARIO"/>
   </Files>
 </scenario>

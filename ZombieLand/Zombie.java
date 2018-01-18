@@ -70,7 +70,8 @@ public abstract class Zombie extends Actor
                     catch (InterruptedException | java.lang.IllegalStateException e) {
                         // If the plan is interrupted, or the zombie was removed, causing an illegal state,
                         // end the zombie
-                        die(true);
+                        if (stillTrying())
+                            die(true);
                     }
                 }
             }
@@ -89,7 +90,9 @@ public abstract class Zombie extends Actor
             frame = (frame + 1) % NUM_FRAMES; // Show the next animation frame
             showAnimationFrame();
             
-            if (!undead) {  // If the zombie is no more, stop doing things.                
+            if (!undead || won) {  // If the zombie is no more, stop doing things.                
+                if (!thinker.isInterrupted())
+                    thinker.interrupt();
                 return;
             }
             

@@ -429,6 +429,10 @@ public class ZombieLand extends World
             List<GoalObject> state = new ArrayList<GoalObject>();
             synchronized (Zombie.class) {
                 for (Actor a : actors) {
+                    if (a.getClass().getName().contains("$")) {
+                        continue;
+                    }
+                    
                     GoalObject gObj = new GoalObject();
                     gObj.a = a;
                     gObj.name = a.getClass().getName();
@@ -448,24 +452,24 @@ public class ZombieLand extends World
                         catch (Exception e) {}
                     }
     
-                    if (!gObj.name.contains("$")) {
-                        boolean duplicate = false;
-    
-                        for (int i = 0; i < state.size(); i++) {
-                            GoalObject o = state.get(i);
-    
-                            if (o.name.equals(gObj.name) &&
-                                o.x == gObj.x &&
-                                o.y == gObj.y) {
-                                duplicate = true;
-                                o.count = o.count + 1;
-                                break;
-                            }
+                    boolean duplicate = false;
+
+                    /*
+                    for (int i = 0; i < state.size(); i++) {
+                        GoalObject o = state.get(i);
+
+                        if (o.name.equals(gObj.name) &&
+                            o.x == gObj.x &&
+                            o.y == gObj.y) {
+                            duplicate = true;
+                            o.count = o.count + 1;
+                            break;
                         }
-    
-                        if (!duplicate) {
-                            state.add(gObj);
-                        }
+                    }
+                    */
+              
+                    if (!duplicate) {
+                        state.add(gObj);
                     }
                 }
     
@@ -490,7 +494,7 @@ public class ZombieLand extends World
         public int y;
         public List<String[]> calls;
         public Actor a;
-
+        
         public boolean equals(Object o) {
             if (o instanceof GoalObject) {
                 GoalObject other = (GoalObject)o;
