@@ -12,7 +12,7 @@ public class MyZombie extends UltraZombie
      * Karl's planned out actions to find his way to the ZombieGoal.
      */
     public void plan() 
-    {  
+    {          
         
     }
 }

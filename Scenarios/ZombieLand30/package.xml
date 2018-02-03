@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<scenario name="ZombieLand 30 - Karl's Labarynth">
+<scenario name="ZombieLand 30 - Karl's Labyrinth">
   <Files>
+    <File ref="Brain.class" source="BASE"/>
+    <File ref="Bucket.class" source="BASE"/>
     <File ref="doc\allclasses-frame.html" source="BASE"/>
     <File ref="doc\allclasses-noframe.html" source="BASE"/>
     <File ref="doc\Brain.html" source="BASE"/>
@@ -23,7 +25,6 @@
     <File ref="doc\ZombieGoal.html" source="BASE"/>
     <File ref="doc\ZombieLand.html" source="BASE"/>
     <File ref="Fire.class" source="SCENARIO"/>
-    <File ref="Fire.java" source="SCENARIO"/>
     <File ref="images\brain.png" source="BASE"/>
     <File ref="images\brick.jpg" source="BASE"/>
     <File ref="images\bucket.png" source="BASE"/>
@@ -91,10 +92,10 @@
     <File ref="sounds\ZombieScream.wav" source="BASE"/>
     <File ref="UltraZombie.class" source="BASE"/>
     <File ref="Wall.class" source="BASE"/>
-    <File ref="Zombie$1.class" source="BASE"/>
-    <File ref="Zombie.class" source="BASE"/>
-    <File ref="ZombieDetector.class" source="BASE"/>
-    <File ref="ZombieGoal.class" source="BASE"/>
+    <File ref="Zombie$1.class" source="SCENARIO"/>
+    <File ref="Zombie.class" source="SCENARIO"/>
+    <File ref="ZombieDetector.class" source="SCENARIO"/>
+    <File ref="ZombieGoal.class" source="SCENARIO"/>
     <File ref="ZombieLand$1.class" source="SCENARIO"/>
     <File ref="ZombieLand$2.class" source="SCENARIO"/>
     <File ref="ZombieLand.class" source="SCENARIO"/>

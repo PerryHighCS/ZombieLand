@@ -1,5 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import javax.swing.JOptionPane;
 
 /**
  * A special ZombieLand that builds a random labyrinth for Karl to wander
@@ -9,7 +12,7 @@ public class ZombieLand extends World
     private Actor[][] worldArray;
     private boolean[][] labyrinth;
     private boolean building = false;
-    
+     
     Actor message = null;
     private boolean done = false;
     
@@ -62,9 +65,20 @@ public class ZombieLand extends World
                 
                 // Then make space and add Karl to the top left corner.
                 breakBlock(0, 1);
-                Zombie z = new MyZombie();
-                addObject(z, 0, 1);
                 
+                // Create Karl using reflection... this is some black magic here:
+                try {
+                    ClassLoader cl = this.getClass().getClassLoader();
+                    Class myz = cl.loadClass("My" + "Zombie");
+                    Constructor myzc = myz.getConstructor(null);
+                    Zombie z = (Zombie)myzc.newInstance();
+                    addObject(z, 0, 1);
+                }
+                catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
+                    InvocationTargetException | IllegalAccessException e) {
+                        JOptionPane.showMessageDialog(null, "Could not add Karl",                         
+                        "There is no My Zombie class to add to this world!", JOptionPane.ERROR_MESSAGE);
+                    }
                 // Building has now ended
                 building = false;
             }
