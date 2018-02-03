@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=ZombieDetector
+comment0.text=\r\n\ Detects\ each\ time\ a\ Zombie\ enters\ the\ cell\ with\ the\ detector\r\n\ \r\n\ @author\ bdahlem\ \r\n\ @version\ 1.0\r\n
+comment1.params=
+comment1.target=ZombieDetector()
+comment1.text=\r\n\ Create\ an\ invisible\ ZombieDetector\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Check\ if\ a\ Zombie\ has\ stepped\ on\ the\ detector.\ \ Increment\ the\ count\ only\ when\ the\ zombie\r\n\ moves\ onto\ the\ detector.\r\n
+comment3.params=
+comment3.target=void\ detected()
+numComments=4

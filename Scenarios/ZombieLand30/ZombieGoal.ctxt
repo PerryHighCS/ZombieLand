@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=ZombieGoal
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ ZombieGoal\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=ZombieGoal()
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ ZombieGoal\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment3.params=
+comment3.target=void\ detected()
+comment3.text=\r\n\ When\ a\ zombie\ reaches\ this\ cell,\ it\ has\ reached\ its\ goal.\r\n
+comment4.params=name
+comment4.target=greenfoot.GreenfootImage[]\ loadFrames(java.lang.String)
+comment4.text=\r\n\ Create\ and\ fill\ an\ array\ of\ Greenfoot\ images\ by\ loading\ the\ files\ with\r\n\ a\ given\ name\ followed\ by\ frame\ numbers\r\n
+numComments=5
