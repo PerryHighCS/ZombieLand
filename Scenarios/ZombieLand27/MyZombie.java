@@ -9,10 +9,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyZombie extends UltraZombie
 {
     /**
-     * Karl's planned out actions to build the triangle of brains in front of him.
+     * Karl's planned out actions to sort the piles of brains in front of him.
      */
     public void plan() 
-    {       
+    {      
        
     }
 }

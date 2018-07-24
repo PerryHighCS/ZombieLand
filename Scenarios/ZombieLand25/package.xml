@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<scenario name="ZombieLand 25 - Sorting Braaains">
+<scenario name="ZombieLand 25 - Bigger Pile Right">
   <Files>
     <File ref="Brain.class" source="BASE"/>
     <File ref="doc\allclasses-frame.html" source="BASE"/>

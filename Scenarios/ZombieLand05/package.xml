@@ -89,6 +89,7 @@
     <File ref="sounds\ZombieLoudGroan.wav" source="BASE"/>
     <File ref="sounds\ZombieMedGroan.wav" source="BASE"/>
     <File ref="sounds\ZombieScream.wav" source="BASE"/>
+    <File ref="Wall.class" source="BASE"/>
     <File ref="Zombie$1.class" source="BASE"/>
     <File ref="Zombie.class" source="BASE"/>
     <File ref="ZombieDetector.class" source="BASE"/>

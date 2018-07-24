@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<scenario name="ZombieLand 27 - Pascal's Triangle of Braaains">
+<scenario name="ZombieLand 27 - Fibonacci Braaains">
   <Files>
     <File ref="Brain.class" source="BASE"/>
     <File ref="doc\allclasses-frame.html" source="BASE"/>
