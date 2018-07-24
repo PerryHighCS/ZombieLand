@@ -66,7 +66,7 @@ public class ZombieLand extends World
     /**
      * Create a ZombieLand with a given size;
      */
-    public ZombieLand(int width, int height, int cellSize)
+    private ZombieLand(int width, int height, int cellSize)
     {
         super(width, height, cellSize);
     }

@@ -153,7 +153,18 @@ public abstract class Zombie extends Actor
             }
         }
     }
-
+    
+    /**
+     * Move forward 1 step.
+     */
+    public final void move(int x)
+    {
+        while (x > 0 && !isDead() && !hasWon()) {
+            this.move();
+            x--;
+        }
+    }
+    
     /**
      * Turn 90 degrees to the right.
      */

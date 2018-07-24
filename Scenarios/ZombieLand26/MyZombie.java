@@ -12,7 +12,7 @@ public class MyZombie extends UltraZombie
      * Karl's planned out actions to sort the piles of brains in front of him.
      */
     public void plan() 
-    {      
+    {       
        
     }
 }

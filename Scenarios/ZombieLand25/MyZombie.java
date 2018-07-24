@@ -9,17 +9,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyZombie extends UltraZombie
 {
     /**
-     * Karl's planned out actions to sort the piles of brains in front of him.
+     * Karl's planned out actions to move the largest of the two piles of brains
+     * in front of him to the right, the smaller to the left.
      */
     public void plan() 
-    {       
-       // Loop once for each cell the world is wide
-       for (int i = 0; i < getWorld().getWidth(); i++) {
-           
-           move();// Your code here
-           
-       }
+    {
        
-       win();
     }
 }

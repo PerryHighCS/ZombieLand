@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<scenario name="ZombieLand 28 - Corridors of Recursion">
+<scenario name="ZombieLand 28 - Pascal's Triangle of Braaains">
   <Files>
     <File ref="Brain.class" source="BASE"/>
     <File ref="doc\allclasses-frame.html" source="BASE"/>
@@ -23,7 +23,6 @@
     <File ref="doc\ZombieDetector.html" source="BASE"/>
     <File ref="doc\ZombieGoal.html" source="BASE"/>
     <File ref="doc\ZombieLand.html" source="BASE"/>
-    <File ref="Fire.class" source="BASE"/>
     <File ref="images\brain.png" source="BASE"/>
     <File ref="images\brick.jpg" source="BASE"/>
     <File ref="images\bucket.png" source="BASE"/>
@@ -91,7 +90,6 @@
     <File ref="sounds\ZombieMedGroan.wav" source="BASE"/>
     <File ref="sounds\ZombieScream.wav" source="BASE"/>
     <File ref="UltraZombie.class" source="BASE"/>
-    <File ref="Wall.class" source="BASE"/>
     <File ref="Zombie$1.class" source="BASE"/>
     <File ref="Zombie.class" source="BASE"/>
     <File ref="ZombieLand$1.class" source="BASE"/>
@@ -104,5 +102,7 @@
     <File ref="ZombieLand2.xml" source="SCENARIO"/>
     <File ref="ZombieLand3.class" source="BASE"/>
     <File ref="ZombieLand3.xml" source="SCENARIO"/>
+    <File ref="ZombieLand4.class" source="BASE"/>
+    <File ref="ZombieLand4.xml" source="SCENARIO"/>
   </Files>
 </scenario>

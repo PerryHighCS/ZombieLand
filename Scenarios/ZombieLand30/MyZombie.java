@@ -9,10 +9,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyZombie extends UltraZombie
 {
     /**
-     * Karl's planned out actions to find his way to the ZombieGoal.
+     * Karl's planned out actions to find the middle of any hallway in front
+     * of him.
      */
     public void plan() 
-    {          
+    {  
         
     }
+    
 }
