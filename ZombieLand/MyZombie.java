@@ -12,7 +12,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class MyZombie extends UltraZombie
-{    
+{        
     /**
      * Plan out Karl's actions.
      *
@@ -24,5 +24,6 @@ public class MyZombie extends UltraZombie
      */
     public void plan()
     {
+        
     }
 }
