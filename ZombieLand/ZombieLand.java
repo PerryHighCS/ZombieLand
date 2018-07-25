@@ -16,6 +16,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ArrayList;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
 
 /**
  * Write a description of class MyWorld here.
@@ -28,6 +33,7 @@ public class ZombieLand extends World
     Actor message = null;
     private boolean done = false;
     private List<GoalObject> goal;
+    private boolean checked = false;
 
     /**
      * Load the world description file and initialize the world
@@ -59,7 +65,7 @@ public class ZombieLand extends World
             Greenfoot.setWorld(firstWorld);
         }
         catch (Exception e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
     }
    
@@ -292,6 +298,10 @@ public class ZombieLand extends World
      */
     public void act()
     {
+        if (!checked) {
+            checkForAssignment();
+            checked = true;
+        }
         if (!done) {
             synchronized (Zombie.class) {
 
@@ -485,7 +495,55 @@ public class ZombieLand extends World
         
         return false;
     }
+    
+    /**
+     * Look at the source code for MyZombie.java, ensuring there are no assignment statements.
+     */
+    private void checkForAssignment() {
+        try {
+            String sourceCode = readFile("MyZombie.java", StandardCharsets.UTF_8);
+            
+            // Strip out comments
+            sourceCode = sourceCode.replaceAll("//(?:.|)*?[\\n\\r]", "")        // singleline comments
+                                   .replaceAll("/\\*(?:.|[\\n\\r])*?\\*/", ""); // multiline comments
+            
+            // If there is an =
+            if (sourceCode.matches("[\\S\\s]*(?<![=!])=(?!=)[\\S\\s]*")) {
+                // Quit because there's an assignment statement
+                finish("Zombie not know =", false);
+            }
+            else if (sourceCode.matches("[\\S\\s]*\\d[\\S\\s]*")) {
+                // Quit because there's a scary number
+                finish("Not know numbers", false);
+            }
+            else if (sourceCode.contains("<")) {
+                // Quit because there's a comparison statement
+                finish("Zombie not know <", false);
+            }
+            else if (sourceCode.contains(">")) {
+                // Quit because there's a comparison statement
+                finish("Zombie not know >", false);
+            }
+            else if (sourceCode.contains("+")) {
+                // Quit because there's a math expression
+                finish("Zombie not know +", false);
+            }
+            else if (sourceCode.contains("-")) {
+                // Quit because there's a math expression
+                finish("Zombie not know -", false);
+            }
+        }
+        catch (IOException e) {
+        }
+    }
 
+    static String readFile(String path, Charset encoding) 
+      throws IOException 
+    {
+      byte[] encoded = Files.readAllBytes(Paths.get(path));
+      return new String(encoded, encoding);
+    }
+    
     private class GoalObject {
         public String name;
         public int count = 1;

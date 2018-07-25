@@ -155,7 +155,7 @@ public abstract class Zombie extends Actor
     }
     
     /**
-     * Move forward 1 step.
+     * Move forward x steps.
      */
     public final void move(int x)
     {
