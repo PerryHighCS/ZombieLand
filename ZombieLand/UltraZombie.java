@@ -30,6 +30,17 @@ public abstract class UltraZombie extends Zombie
     
     /**
      * Determine if the UltraZombie is facing a particular direction.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *    if (isFacing(EAST)) // If the zombie is facing the right
+     *     {
+     *         turnLeft();     // turn to face NORTH
+     *     }
+     * }
+     * </pre> 
+     * </p>
      * @param direction The direction to check (NORTH, SOUTH, EAST, or WEST)
      * @return true if the UltraZombie is facing that direction.
      */
@@ -70,6 +81,14 @@ public abstract class UltraZombie extends Zombie
     
     /**
      * Turn the zombie to face a particular direction (NORTH, SOUTH, EAST, or WEST);
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *     turnTo(SOUTH);
+     * }
+     * </pre> 
+     * </p>
      */
     public final void turnTo(int direction) 
     {
@@ -85,6 +104,17 @@ public abstract class UltraZombie extends Zombie
     
     /**
      * Check if there is a wall or the edge of the world to the right of the zombie.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *    if (isRightClear()) // If the zombie can move to the right
+     *     {
+     *         turnRight();    // face that way
+     *     }
+     * }
+     * </pre> 
+     * </p>
      */
     public final boolean isRightClear() {
         synchronized (Zombie.class) {
@@ -119,6 +149,17 @@ public abstract class UltraZombie extends Zombie
     
     /**
      * Check if there is a wall or the edge of the world to the left of the zombie.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *    if (isLeftClear()) // If the zombie can move to the left
+     *     {
+     *         turnLeft();    // face that way
+     *     }
+     * }
+     * </pre> 
+     * </p>
      */
     public final boolean isLeftClear() {
         synchronized (Zombie.class) {
@@ -153,6 +194,17 @@ public abstract class UltraZombie extends Zombie
     
     /**
      * Check if there is a wall or the edge of the world to the back of the zombie.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *    if (isBackClear()) // If the zombie can move to backwards
+     *     {
+     *         turnAround();    // face that way
+     *     }
+     * }
+     * </pre> 
+     * </p>
      */
     public final boolean isBackClear() {
         synchronized (Zombie.class) {
@@ -187,6 +239,17 @@ public abstract class UltraZombie extends Zombie
     
     /**
      * Check if there is a wall or the edge of the world in a certain direction from the Zombie.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *    if (isDirectionClear(NORTH)) // If the zombie can move to the north
+     *     {
+     *         turnTo(NORTH);    // face that way
+     *     }
+     * }
+     * </pre> 
+     * </p>
      * @param direction The direction to look for a wall (NORTH, SOUTH, EAST, or WEST)
      */
     public final boolean isDirectionClear(int direction) {

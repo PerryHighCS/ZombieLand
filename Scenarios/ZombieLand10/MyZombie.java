@@ -23,6 +23,14 @@ public class MyZombie extends Zombie
      */
     public void plan() 
     {
-        
+        turnRight();
+        forward();
+        nextHall();
+        forward();
+        takeBrain();
+        turnAround();
+        forward();
+        nextHall();
+        forward();
     }
 }

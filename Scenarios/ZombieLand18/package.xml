@@ -92,8 +92,6 @@
     <File ref="Wall.class" source="BASE"/>
     <File ref="Zombie$1.class" source="BASE"/>
     <File ref="Zombie.class" source="BASE"/>
-    <File ref="ZombieDetector.class" source="BASE"/>
-    <File ref="ZombieGoal.class" source="BASE"/>
     <File ref="ZombieLand$1.class" source="BASE"/>
     <File ref="ZombieLand$goalObject.class" source="BASE"/>
     <File ref="ZombieLand.class" source="BASE"/>

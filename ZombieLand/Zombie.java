@@ -117,6 +117,17 @@ public abstract class Zombie extends Actor
 
     /**
      * Determine if this zombie is still struggling to make it in this world.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *    if (stillTrying()) // If the zombie hasn't passed on, and hasn't reached the goal
+     *     {
+     *         move();
+     *     }
+     * }
+     * </pre> 
+     * </p>
      */
     public boolean stillTrying()
     {
@@ -155,7 +166,7 @@ public abstract class Zombie extends Actor
     }
     
     /**
-     * Move forward x steps.
+     * Move forward x steps (this may look useful, but zombies don't understand numbers).
      */
     public final void move(int x)
     {
@@ -176,7 +187,7 @@ public abstract class Zombie extends Actor
     }
 
     /**
-     * Turn to the right a given number of times
+     * Turn to the right a given number of times (this may look useful, but zombies don't understand numbers).
      * @param turns the number of times to turn 90 degrees to the right
      */
     public final void turn(int turns)
@@ -230,7 +241,7 @@ public abstract class Zombie extends Actor
     }
 
     /**
-     * Put down a brain if the Zombie has one.  End if not.
+     * Put down a brain if the Zombie has one, if the zombie is not holding a brain, it will put down its own brain, ending its afterlife.
      */
     public final void putBrain()
     {
@@ -264,13 +275,14 @@ public abstract class Zombie extends Actor
                 }
             }
             catch (ClassNotFoundException | InterruptedException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                ((ZombieLand)getWorld()).finish("Zombie no have brain.", false);
+//                ((ZombieLand)getWorld()).finish("Zombie no have brain.", false);
+                e.printStackTrace();
             }
         }
     }
 
     /**
-     * Check if this actor is touching an object with the given classname
+     * Check if this actor is touching an object with the given classname (this won't help out your plan)
      * @param classname The name of the object type to check for
      */
     public final boolean isTouching(String classname) {
@@ -285,7 +297,7 @@ public abstract class Zombie extends Actor
     }
     
     /**
-     * Remove one object that the zombie is touching
+     * Remove one object that the zombie is touching (this may look useful, but it really won't work in your plan)
      * @param classname the name of the type of object to remove
      */
     public final void removeTouching(String classname) {
@@ -301,6 +313,17 @@ public abstract class Zombie extends Actor
     
     /**
      * Check if this Zombie is carrying a brain.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *    if (haveBrains()) // If the zombie is carrying at least one brain
+     *     {
+     *         putBrain();   // put one down
+     *     }
+     * }
+     * </pre> 
+     * </p>
      */
     public final boolean haveBrains()
     {
@@ -318,6 +341,17 @@ public abstract class Zombie extends Actor
 
     /**
      * Check if there is a brain where the zombie is standing.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *    if (isBrainHere()) // If the zombie is standing on a brain
+     *     {
+     *         takeBrain();   // pick it up
+     *     }
+     * }
+     * </pre>
+     * </p>
      */
     public final boolean isBrainHere() {
         synchronized (Zombie.class)
@@ -328,6 +362,17 @@ public abstract class Zombie extends Actor
 
     /**
      * Check if there is a wall or the edge of the world in front of the zombie.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *    if (isFrontClear()) // If the zombie is not facing a wall
+     *     {
+     *         move();         // take a step forward
+     *     }
+     * }
+     * </pre> 
+     * </p>
      */
     public final boolean isFrontClear() {
         synchronized (Zombie.class) {
@@ -396,7 +441,7 @@ public abstract class Zombie extends Actor
     }
 
     /**
-     * This Zombie has reached its goal in afterlife!
+     * Tell this Zombie it has reached its goal in afterlife!
      */
     public final void win()
     {
@@ -408,6 +453,17 @@ public abstract class Zombie extends Actor
     
     /**
      * Check if this zombie has accomplished everything it could hope for.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     *    if (!hasWon()) // If the zombie hasn't reached the goal
+     *     {
+     *         move();    // step towards it
+     *     }
+     * }
+     * </pre> 
+     * </p>
      */
     public boolean hasWon()
     {
