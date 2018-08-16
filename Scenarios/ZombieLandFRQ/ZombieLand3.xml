@@ -8,7 +8,7 @@
       </initial>
       <objective>
          <object classname="MyZombie">
-            <location x="0" y="8">
+            <location x="9" y="8">
                <call name="hasWon" value="true"/>
             </location>
          </object>

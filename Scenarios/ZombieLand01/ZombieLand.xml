@@ -14,7 +14,7 @@
             <location dir="0" x="4" y="0"/>
          </object>
          <object classname="MyZombie">
-            <location dir="0" x="4" y="0"/>
+            <location x="4" y="0"/>
          </object>
       </objective>
    </world>

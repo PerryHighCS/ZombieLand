@@ -250,28 +250,34 @@ public class ZombieLand extends World
     {
         List<GoalObject> goalList = new ArrayList<>();
 
+        // Create a list of goal objects based on all of the nodes in the solution tree
         for (int i = 0; i < goalNodes.getLength(); i++) {
+            // Determine what type of object to look for
             Element gEl = (Element)goalNodes.item(i);
-
             String classname = gEl.getAttribute("classname");
 
+            // Determine all of the instances of the goal object
             NodeList locations = gEl.getElementsByTagName("location");
             for (int j = 0; j < locations.getLength(); j++) {
                 Element pos = (Element)locations.item(j);
 
+                // Create a goal object representing the instance at a particular location
                 GoalObject gObj = new GoalObject();
                 gObj.name = classname;                    
                 gObj.x = Integer.parseInt(pos.getAttribute("x"));
                 gObj.y = Integer.parseInt(pos.getAttribute("y"));
-
+                
+                // Determine how many instances should be at the location
                 if (pos.hasAttribute("count")) {
                     gObj.count = Integer.parseInt(pos.getAttribute("count"));
                 }
-
+                
+                // Determine what direction the instance(s) should be facing
                 if (pos.hasAttribute("dir")) {
                     gObj.dir = Integer.parseInt(pos.getAttribute("dir"));
                 }
-
+                
+                // Determine if any method calls need to be made to determine if goal has been reached
                 NodeList callList = pos.getElementsByTagName("call");
                 if (callList.getLength() > 0) {
                     gObj.calls = new ArrayList<String[]>();
@@ -279,8 +285,8 @@ public class ZombieLand extends World
                     for (int k = 0; k < callList.getLength(); k++) {
                         Element method = ((Element)callList.item(k));
                         String[] callSignature = new String[2];
-                        callSignature[0] = method.getAttribute("name");
-                        callSignature[1] = method.getAttribute("value");
+                        callSignature[0] = method.getAttribute("name");  // method call name
+                        callSignature[1] = method.getAttribute("value"); // expected return value
 
                         gObj.calls.add(callSignature);
                     }
@@ -298,14 +304,19 @@ public class ZombieLand extends World
      */
     public void act()
     {
+        // Make sure the MyZombie plan does not include illegal features
         if (!checked) {
             checkForAssignment();
             checked = true;
         }
+        
+        // If the goal hasn't yet been reached and the zombies are still trying
         if (!done) {
             synchronized (Zombie.class) {
 
+                // Make sure that the zombies are still trying
                 if (checkZombies() ) {
+                    // And check if the goal has now been reached
                     if (checkGoal()) {
                     }
                 }                    
@@ -322,6 +333,7 @@ public class ZombieLand extends World
             removeObject(message);
         }
 
+        // Create an actor to display the message
         message = new Actor(){public void act(){}};
 
         int xOffset = 0;
@@ -334,18 +346,22 @@ public class ZombieLand extends World
             yOffset = getCellSize() / 2;
         }
 
+        // Create a temporary image to measure the text
         GreenfootImage img = new GreenfootImage(1,1);
 
+        // Set up the font for the message
         java.awt.Font f = new java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.BOLD, 30);
         java.awt.Image image = img.getAwtImage();
         java.awt.Graphics g = img.getAwtImage().createGraphics();
         g.setFont(f);
         java.awt.FontMetrics fm = g.getFontMetrics(f);
 
+        // Determine the size of the text
         int textWidth = fm.stringWidth(msg);
         int textHeight = fm.getHeight() + fm.getMaxDescent();
         int textBottom = textHeight - fm.getMaxDescent();
 
+        // Create an image that will fit the actual dimensions of the text (and center it)
         img = new GreenfootImage((textWidth  + xOffset)* 2, textHeight + yOffset * 2);
         g = img.getAwtImage().createGraphics();
         g.setColor(java.awt.Color.BLACK);
@@ -354,6 +370,7 @@ public class ZombieLand extends World
         int x = textWidth / 2 ;
         int y = textBottom;
 
+        // Draw the text onto the image, offsetting in all directions to create an outline
         g.drawString(msg, x-1, y-1);
         g.drawString(msg, x, y-1);
         g.drawString(msg, x+1, y-1);
@@ -363,6 +380,7 @@ public class ZombieLand extends World
         g.drawString(msg, x, y+1);
         g.drawString(msg, x+1, y+1);
 
+        // Draw the text in white above the outline
         g.setColor(java.awt.Color.WHITE);
         g.drawString(msg, x, y);
 
@@ -399,19 +417,27 @@ public class ZombieLand extends World
      * End the world if there aren't any zombies left.
      */
     public boolean checkZombies()
-    {    
+    {   
+        // if the scenario hasn't already finished
         if (!done) {
             List<Zombie> zombies = getObjects(Zombie.class);
 
+            // Check if there are any zombies left in the world
             if (zombies.size() == 0) {
                 finish("Zombie no more.", false);
                 return false;
             }
             else {
                 boolean allDead = true;
+                boolean allDone = true;
+                
+                // If there are still zombies, determine if they are all dead or if any are still trying
                 for (Zombie z : zombies) {
                     if (!z.isDead()) {
-                        allDead = false;
+                        allDead = false;    // Someone is still undead
+                    }
+                    if (z.stillTrying()) {
+                        allDone = false;    // Someone is still struggling
                     }
                 }
 
@@ -419,6 +445,8 @@ public class ZombieLand extends World
                     finish("Zombie dead.", false);
                     return false;
                 }
+                
+                done = allDone; // The scenario is over if all of the zombies are
             }
         }
         return true;
@@ -438,11 +466,14 @@ public class ZombieLand extends World
             List<Actor> actors = getObjects(null);
             List<GoalObject> state = new ArrayList<GoalObject>();
             synchronized (Zombie.class) {
+                // Look at all of the actors in the world
                 for (Actor a : actors) {
+                    // If the actor is an anonymous class, skip it
                     if (a.getClass().getName().contains("$")) {
                         continue;
                     }
                     
+                    // Create a goal object describing this actor
                     GoalObject gObj = new GoalObject();
                     gObj.a = a;
                     gObj.name = a.getClass().getName();
@@ -451,6 +482,8 @@ public class ZombieLand extends World
                     gObj.y = a.getY();
                     gObj.dir = a.getRotation();
                     gObj.count = 1;
+                    
+                    // Handle counting brains on the pile using reflection
                     if (gObj.name.equals("Brain")) {
                         try {
                             Class objClass = cl.loadClass("Brain");
@@ -478,15 +511,69 @@ public class ZombieLand extends World
                     }
                     */
               
+                    // Add all objects to the current state
                     if (!duplicate) {
                         state.add(gObj);
                     }
                 }
     
+                // If the state is the same as the goal condition, the scenario succeeded
                 if (goal != null && state.size() == goal.size()) {
                     if (state.containsAll(goal)) {
                         finish("Zombie do good.", true);
                         return true;
+                    }
+                }
+                
+                // If the goal hasn't been reached
+                if (goal != null) {
+                    //Check all of the zombies
+                    for (GoalObject o : state) {
+                        if (o.a instanceof Zombie) {
+                            Zombie z = (Zombie)o.a;
+                            
+                            // If the zombie has not reached its goal, and is no longer trying to, mark it as red
+                            if (!z.stillTrying() && !goal.contains(o)) {                                
+                                z.drawRed();
+                            }
+                        }
+                    }
+                }
+                
+                // If the scenario is finished, but the goal hasn't been reached
+                if (goal != null && done) {
+                    // Check all the actors that aren't zombies
+                    for (GoalObject o : state) {
+                        // If the actor isn't supposed to be there, mark it yellow.
+                        if (!(o.a instanceof Zombie) && !goal.contains(o)) {
+                            Actor a = o.a;
+                            GreenfootImage ai = a.getImage();
+                            
+                            GreenfootImage img = new GreenfootImage(getCellSize(), getCellSize());
+                            img.setColor(new Color(255, 255, 0, 96));
+                            img.fillRect(1, 1, getCellSize() - 2, getCellSize() - 2);
+                            
+                            int x = (getCellSize() - ai.getWidth()) / 2;
+                            int y = (getCellSize() - ai.getHeight()) / 2;
+                            img.drawImage(ai, x, y);
+                            
+                            a.setImage(img);
+                        }
+                    }
+                    
+                    // Check all the objects in the goal condition
+                    for (GoalObject o : goal) {
+                        // If the actor isn't present, draw an empty yellow box
+                        if (!(o.name.equals("MyZombie")) && !state.contains(o)) {
+                            Actor a = new Actor(){public void act(){}};
+                            
+                            GreenfootImage img = new GreenfootImage(getCellSize(), getCellSize());
+                            img.setColor(new Color(255, 255, 0, 96));
+                            img.fillRect(1, 1, getCellSize() - 2, getCellSize() - 2);
+                            
+                            a.setImage(img);
+                            addObject(a, o.x, o.y);
+                        }
                     }
                 }
             }
@@ -558,40 +645,61 @@ public class ZombieLand extends World
                 GoalObject other = (GoalObject)o;
 
                 boolean calls = true;
-
-                if (this.calls != null) {
-                    if (this.name.equals(other.name)) {
-                        for (String[] methodCall : this.calls) {
-                            String methodName = methodCall[0];
-                            try {
-                                Class c = Class.forName(this.name);
-                                Method m = c.getMethod(methodName, null);
-
-                                String rval = m.invoke(other.a, null).toString();
-
-                                if (!rval.equals(methodCall[1])){
-                                    calls = false;
-                                }
-                            }
-                            catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
+                
+                GoalObject goal;
+                GoalObject cur;
+                
+                if (this.a != null) {
+                    goal = other;
+                    cur = this;
+                }
+                else {
+                    goal = this;
+                    cur = other;
                 }
 
-                if (this.dir != Integer.MIN_VALUE) {
-                    if (this.dir != other.dir) {
+                if (this.name.equals(other.name)) {
+                    if (goal.calls != null && cur.a != null) {
+                        calls = checkCalls(goal, cur);
+                    }
+                }
+                
+                if (goal.dir != Integer.MIN_VALUE) {
+                    if (goal.dir != cur.dir) {
                         calls = false;
                     }
                 }
+                
                 return this.name.equals(other.name) &&
-                this.x == other.x &&
-                this.y == other.y &&
-                this.count == other.count &&
-                calls == true;
+                    this.x == other.x &&
+                    this.y == other.y &&
+                    this.count == other.count &&
+                    calls == true;
             }
             return false;
         }
+        
+        
+        private boolean checkCalls(GoalObject goal, GoalObject cur) {
+            for (String[] methodCall : goal.calls) {
+                String methodName = methodCall[0];
+                try {
+                    Class c = Class.forName(this.name);
+                    Method m = c.getMethod(methodName, null);
+
+                    String rval = m.invoke(cur.a, null).toString();
+
+                    if (!rval.equals(methodCall[1])){
+                        return false;
+                    }
+                }
+                catch (Exception e) {
+                    //e.printStackTrace();
+                }
+            }
+            
+            return true;
+        }
     }
+    
 }
