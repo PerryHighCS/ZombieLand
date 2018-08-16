@@ -17,6 +17,8 @@
          </object>
          <object classname="Wall">
             <location dir="0" x="2" y="2"/>
+            <location dir="0" x="0" y="2"/>
+            <location dir="0" x="4" y="2"/>
          </object>
       </initial>
       <objective>
@@ -33,6 +35,8 @@
          </object>
          <object classname="Wall">
             <location x="2" y="2"/>
+            <location x="0" y="2"/>
+            <location x="4" y="2"/>
          </object>
       </objective>
    </world>

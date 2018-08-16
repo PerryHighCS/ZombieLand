@@ -97,6 +97,7 @@
     <File ref="ZombieDetector.class" source="BASE"/>
     <File ref="ZombieGoal.class" source="BASE"/>
     <File ref="ZombieLand$1.class" source="BASE"/>
+    <File ref="ZombieLand$2.class" source="BASE"/>
     <File ref="ZombieLand$goalObject.class" source="BASE"/>
     <File ref="ZombieLand.class" source="BASE"/>
     <File ref="ZombieLand.xml" source="SCENARIO"/>
