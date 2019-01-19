@@ -83,7 +83,7 @@ public abstract class Zombie extends Actor
 
         thinker.start();
     }
-    
+
     /**
      * Perform one animation step.
      */
@@ -628,31 +628,31 @@ public abstract class Zombie extends Actor
             dy = -1;
         }
 
-dx *= distance;
-dy *= distance;
+        dx *= distance;
+        dy *= distance;
 
-if (classname != null) {
-List<Actor> objects = getObjectsAtOffset(dx, dy, null);
+        if (classname != null) {
+            List<Actor> objects = getObjectsAtOffset(dx, dy, null);
 
-for (Actor a : objects) {
-if (a.getClass().getName().equals(classname)){
-return a;
-}
-}
+            for (Actor a : objects) {
+                if (a.getClass().getName().equals(classname)){
+                    return a;
+                }
+            }
 
-return null;
-}
-else {
-int nextX = getX() + dx;
-int nextY = getY() + dy;
-if ((nextX >= 0 && nextX < getWorld().getWidth()) &&
-(nextY >= 0 && nextY < getWorld().getHeight())) {
-return getOneObjectAtOffset(dx, dy, null);
-}
-else {
-return this;
-}
-}
+            return null;
+        }
+        else {
+            int nextX = getX() + dx;
+            int nextY = getY() + dy;
+            if ((nextX >= 0 && nextX < getWorld().getWidth()) &&
+            (nextY >= 0 && nextY < getWorld().getHeight())) {
+                return getOneObjectAtOffset(dx, dy, null);
+            }
+            else {
+                return this;
+            }
+        }
     }
 
     /**
