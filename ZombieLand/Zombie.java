@@ -83,7 +83,7 @@ public abstract class Zombie extends Actor
 
         thinker.start();
     }
-
+    
     /**
      * Perform one animation step.
      */

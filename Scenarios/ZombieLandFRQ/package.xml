@@ -103,5 +103,7 @@
     <File ref="ZombieLand2.xml" source="SCENARIO"/>
     <File ref="ZombieLand3.class" source="BASE"/>
     <File ref="ZombieLand3.xml" source="SCENARIO"/>
+    <File ref="ZombieLand4.class" source="BASE"/>
+    <File ref="ZombieLand4.xml" source="SCENARIO"/>
   </Files>
 </scenario>

@@ -84,6 +84,7 @@ public abstract class Zombie extends Actor
         thinker.start();
     }
 
+    
     /**
      * Perform one animation step.
      */
@@ -103,7 +104,7 @@ public abstract class Zombie extends Actor
             if(frame % 2 == 0) {
                 Zombie.class.notify();  // release the lock to perform the action
 
-                if (undead && Math.random() < 0.005) {            // Play a random sound randomly if still running
+                if (undead && Math.random() < 0.001) {            // Play a random sound randomly if still running
                     sounds[(int)(Math.random() * 2)].play();
                 }
             }

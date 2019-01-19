@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scenario>
+   <world height="9" width="10">
+      <initial>
+         <object classname="MyZombie">
+            <location dir="0" x="0" y="8"/>
+         </object>
+         <object classname="Brain">
+            <location dir="0" x="9" y="8"/>
+            <location dir="0" x="9" y="7"/>
+            <location dir="0" x="9" y="6"/>
+            <location dir="0" x="9" y="5"/>
+            <location dir="0" x="9" y="4"/>
+            <location dir="0" x="9" y="3"/>
+            <location dir="0" x="9" y="2"/>
+            <location dir="0" x="9" y="1"/>
+            <location dir="0" x="9" y="0"/>
+         </object>
+      </initial>
+      <objective>
+         <object classname="MyZombie">
+            <location x="9" y="0">
+               <call name="hasWon" value="true"/>
+            </location>
+         </object>
+         <object classname="Brain">
+            <location x="9" y="8"/>
+            <location x="9" y="7"/>
+            <location x="9" y="6"/>
+            <location x="9" y="5"/>
+            <location x="9" y="4"/>
+            <location x="9" y="3"/>
+            <location x="9" y="2"/>
+            <location x="9" y="1"/>
+            <location x="9" y="0"/>
+         </object>
+      </objective>
+   </world>
+</scenario>
