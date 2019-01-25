@@ -20,5 +20,5 @@ The ZombieLand folder is a base scenario that all of the individual ZombieLand s
 
 The WorldBuilder folder contains a Greenfoot scenario that functions as a level editor for the ZombieLand scenarios.
 
-ZombieLandPackager is a manager for the scenarios, allowing scenarios to be built into Greenfoot packages
+ZombieLandPackager is a manager for the scenarios, allowing scenarios to be built into Greenfoot packages for easy distribution.
 
