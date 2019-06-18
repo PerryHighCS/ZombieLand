@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=ZombieLandInfinity
+comment0.text=\r\n\ A\ special\ ZombieLand\ that\ builds\ a\ random\ labyrinth\ for\ Karl\ to\ wander\r\n
+comment1.params=
+comment1.target=ZombieLandInfinity()
+comment2.params=brains
+comment2.target=ZombieLandInfinity(boolean)
+comment2.text=\r\n\ Create\ the\ labyrinth\r\n
+comment3.params=
+comment3.target=void\ run()
+comment4.params=
+comment4.target=void\ act()
+comment4.text=\r\n\ Animate\ the\ building\ of\ the\ labyrinth\ by\ building\ one\ step\ per\ act\ cycle,\ then\r\n\ watch\ the\ zombie's\ progress\r\n
+comment5.params=x\ y
+comment5.target=void\ build(int,\ int)
+comment5.text=\r\n\ Recursively\ build\ a\ labyrinth\r\n\ @param\ x\ The\ horizontal\ labyrinth\ coordinate\ to\ build\ from\r\n\ @param\ y\ The\ vertical\ labyrinth\ coordinate\ to\ build\ from\r\n
+comment6.params=arr
+comment6.target=void\ shuffle(int[])
+comment6.text=\r\n\ Randomize\ an\ array\ of\ ints\r\n
+comment7.params=x\ y
+comment7.target=void\ breakBlock(int,\ int)
+comment7.text=\r\n\ Remove\ the\ object\ at\ a\ given\ x,y\ location\ in\ the\ map\r\n
+numComments=8

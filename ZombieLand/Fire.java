@@ -4,26 +4,22 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 /**
- * Write a description of class Fire here.
+ * Fire burns zombie.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author bdahlem
+ * @version 1.1
  */
 public class Fire extends Actor
 {
-    private int frame = 0;
-    private static final int NUM_FRAMES = 12;
-    
     private static final int FIRE = 0;
     private static final int SMOKE = 1;
     private int fireMode;
     
-    private GreenfootImage[][] images;
+    private int frame = 0;
+    private static final int NUM_FRAMES = 12;
+    private static GreenfootImage[][] images = preloadFrames();
     
-    public Fire() {
-        images = new GreenfootImage[2][];
-        preloadFrames();
-        
+    public Fire() {        
         fireMode = FIRE;
         frame = (int)(Math.random() * NUM_FRAMES);
     }
@@ -87,17 +83,22 @@ public class Fire extends Actor
     /**
      * Load all of the fire and smoke frames for better animation.
      */
-    private void preloadFrames()
+    private static GreenfootImage[][] preloadFrames()
     {
+        
+        images = new GreenfootImage[2][];
+        
         images[FIRE] = loadFrames("Fire");
         images[SMOKE] = loadFrames("Smoke");
+        
+        return images;
     }
     
     /**
      * Create and fill an array of Greenfoot images by loading the files with
      * a given name followed by frame numbers
      */
-    private GreenfootImage[] loadFrames(String name)
+    private static GreenfootImage[] loadFrames(String name)
     {
         GreenfootImage[] imageArr = new GreenfootImage[NUM_FRAMES];
         

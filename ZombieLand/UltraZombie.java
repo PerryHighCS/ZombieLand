@@ -1,8 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
- * Write a description of class UltraZombie here.
+ * An evolved zombie with POWERS!
  * 
  * @author bdahlem 
  * @version 7/26/2017
@@ -18,6 +20,10 @@ public abstract class UltraZombie extends Zombie
         super();
     }
     
+    protected UltraZombie(int numBrains) {
+        super(numBrains);
+    }
+    
     /**
      * Determine which direction the UltraZombie is facing.
      * 
@@ -25,7 +31,27 @@ public abstract class UltraZombie extends Zombie
      */
     public final int facing()
     {
-       return (getRotation() / 90) * 90;
+        CompletableFuture<Integer> result = new CompletableFuture<>();
+            
+        nextAction(()->
+            {
+                
+                result.complete(dirFacing());
+            },
+            debugLog()
+        );
+            
+        try {
+            return result.get();
+        }
+        catch (InterruptedException | ExecutionException e) {
+        }
+        return 0;
+    }
+    
+    private int dirFacing()
+    {
+        return (getRotation() / 90) * 90;
     }
     
     /**
@@ -46,22 +72,34 @@ public abstract class UltraZombie extends Zombie
      */
     public final boolean isFacing(int direction) 
     {
-        return facing() == direction;
+        CompletableFuture<Boolean> result = new CompletableFuture<>();
+            
+        nextAction(()->
+            {
+                result.complete(dirFacing() == direction);
+            },
+            debugLog()
+        );
+            
+        try {
+            return result.get();
+        }
+        catch (InterruptedException | ExecutionException e) {
+        }
+        return false;
     }
     
     /**
      * Turn 90 degrees to the left
      */
     public final void turnLeft()
-    {
-        synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
+    {           
+       nextAction(()->
+            {
                 turn(-1);
-            }
-            catch (InterruptedException e) {
-            }
-        }
+            },
+            debugLog()
+        );
     }
     
     /**
@@ -69,14 +107,12 @@ public abstract class UltraZombie extends Zombie
      */
     public final void turnAround()
     {
-        synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
+        nextAction(()->
+            {
                 turn(2);
-            }
-            catch (InterruptedException e) {
-            }
-        }
+            },
+            debugLog()
+        );
     }
     
     /**
@@ -92,14 +128,12 @@ public abstract class UltraZombie extends Zombie
      */
     public final void turnTo(int direction) 
     {
-        synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
+        nextAction(()->
+            {
                 turn((direction - getRotation()) / 90);
-            }
-            catch (InterruptedException e) {
-            }
-        }
+            },
+            debugLog()
+        );
     }
     
     /**
@@ -117,11 +151,11 @@ public abstract class UltraZombie extends Zombie
      * </p>
      */
     public final boolean isRightClear() {
-        synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                
-                int dir = facing();
+        CompletableFuture<Boolean> result = new CompletableFuture<>();
+            
+        nextAction(()->
+            {
+                int dir = dirFacing();
                 int dx = 0;
                 int dy = 0;
         
@@ -137,14 +171,18 @@ public abstract class UltraZombie extends Zombie
                 else {
                     dx = 1;
                 }
-        
-                return checkDelta("Wall", dx, dy) == null &&
-                        checkDelta(null, dx, dy) != this;
-            }
-            catch (InterruptedException e) {
-            }
-            return false;
+                result.complete(checkDelta("Wall", dx, dy) == null &&
+                                checkDelta(null, dx, dy) != this);
+            },
+            debugLog()
+        );
+            
+        try {
+            return result.get();
         }
+        catch (InterruptedException | ExecutionException e) {
+        }
+        return false;
     }
     
     /**
@@ -162,11 +200,11 @@ public abstract class UltraZombie extends Zombie
      * </p>
      */
     public final boolean isLeftClear() {
-        synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                
-                int dir = facing();
+        CompletableFuture<Boolean> result = new CompletableFuture<>();
+            
+        nextAction(()->
+            {
+                int dir = dirFacing();
                 int dx = 0;
                 int dy = 0;
         
@@ -182,14 +220,19 @@ public abstract class UltraZombie extends Zombie
                 else {
                     dx = -1;
                 }
-        
-                return checkDelta("Wall", dx, dy) == null &&
-                        checkDelta(null, dx, dy) != this;
-            }
-            catch (InterruptedException e) {
-            }
-            return false;
+                
+                result.complete(checkDelta("Wall", dx, dy) == null &&
+                                checkDelta(null, dx, dy) != this);
+            },
+            debugLog()
+        );
+            
+        try {
+            return result.get();
         }
+        catch (InterruptedException | ExecutionException e) {
+        }
+        return false;
     }
     
     /**
@@ -207,11 +250,11 @@ public abstract class UltraZombie extends Zombie
      * </p>
      */
     public final boolean isBackClear() {
-        synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                
-                int dir = facing();
+        CompletableFuture<Boolean> result = new CompletableFuture<>();
+            
+        nextAction(()->
+            {
+                int dir = dirFacing();
                 int dx = 0;
                 int dy = 0;
         
@@ -227,14 +270,18 @@ public abstract class UltraZombie extends Zombie
                 else {
                     dy = 1;
                 }
-        
-                return checkDelta("Wall", dx, dy) == null &&
-                        checkDelta(null, dx, dy) != this;
-            }
-            catch (InterruptedException e) {
-            }
-            return false;
+                result.complete(checkDelta("Wall", dx, dy) == null &&
+                                checkDelta(null, dx, dy) != this);
+            },
+            debugLog()
+        );
+            
+        try {
+            return result.get();
         }
+        catch (InterruptedException | ExecutionException e) {
+        }
+        return false;
     }
     
     /**
@@ -253,10 +300,10 @@ public abstract class UltraZombie extends Zombie
      * @param direction The direction to look for a wall (NORTH, SOUTH, EAST, or WEST)
      */
     public final boolean isDirectionClear(int direction) {
-        synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                
+        CompletableFuture<Boolean> result = new CompletableFuture<>();
+            
+        nextAction(()->
+            {
                 int dx = 0;
                 int dy = 0;
                 
@@ -274,14 +321,18 @@ public abstract class UltraZombie extends Zombie
                         dy = -1;
                         break;
                 }
-                
-                return checkDelta("Wall", dx, dy) == null &&
-                        checkDelta(null, dx, dy) != this;
-            }
-            catch (InterruptedException e) {
-            }
-            return false;
+                result.complete(checkDelta("Wall", dx, dy) == null &&
+                                checkDelta(null, dx, dy) != this);
+            },
+            debugLog()
+        );
+            
+        try {
+            return result.get();
         }
+        catch (InterruptedException | ExecutionException e) {
+        }
+        return false;
     }
     
     /**

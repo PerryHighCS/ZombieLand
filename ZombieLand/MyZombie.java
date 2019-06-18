@@ -1,29 +1,52 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  
 /**
- * Plan the MyZombie's actions. 
- * 
- * Zombies aren't that smart, in order to reach their goal, they must follow a plan to the 
- * letter.  If the zombie runs into an obstacle that isn't accounted for in the plan, the 
- * zombie's plan will fail.  If the zombie's plan runs out of steps, the zombie will give
- * up and die.
+ * Help Karl collect all of the brains.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MyZombie extends Zombie
+public class MyZombie extends UltraZombie
 {
     /**
-     * Plan the MyZombie's actions. 
-     * 
-     * Use the move() and turnRight() methods to help your MyZombie reach the goal.
-     * 
-     * This method is called whenever the 'Act' or 'Run' button gets pressed in the Greenfoot
-     * environment.
+     * Karl's planned out actions to find the longest line of brains in front of him.
      */
     public void plan() 
     {
-        while (true) turnRight();
         
+        while(stillTrying()){
+            nextBrain();
+            followBrains();
+            turnTo(EAST);
+            move();
+            while(!isBrainHere()){
+                move();
+                if(!isFrontClear()){
+                    turnTo(WEST);
+                    while(!isBrainHere()){
+                        move();
+                    }
+                }
+            }
+            
+        }
+    }
+
+    public void nextBrain()
+    {
+        while(!isBrainHere() && isFrontClear()){
+            move();
+        }
+        turnAround();
+    }
+
+    public void followBrains()
+    {
+        turnTo(NORTH);
+        while(isBrainHere()){
+            move();
+        }
+        turnTo(SOUTH);
+        move();
     }
 }

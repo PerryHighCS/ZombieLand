@@ -4,10 +4,10 @@ import java.awt.Graphics;
 import java.awt.FontMetrics;
 
 /**
- * Write a description of class Brain here.
+ * Brains are like money / markers / all purpose zombie goodies.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author bdahlem
+ * @version 1.1
  */
 public class Brain extends Actor
 {
@@ -15,13 +15,16 @@ public class Brain extends Actor
     private int numBrains;
     
     /**
-     * A disembodied brain.  Zombies love brains.
+     * Create a disembodied brain.  Zombies love brains.
      */
     public Brain() {
         baseImage = getImage();
         numBrains = 1;
     }
     
+    /**
+     * Create a pile of brains.
+     */
     public Brain(int num) {
         baseImage = getImage();
         numBrains = num;
@@ -29,8 +32,7 @@ public class Brain extends Actor
     }
     
     /**
-     * Contemplates the meaning of existance; and display the number of brains
-     * in this cell.
+     * Contemplate the meaning of existance
      */
     public void act() 
     {
@@ -74,7 +76,7 @@ public class Brain extends Actor
     }
     
     /**
-     * Set the number of brains in this pile
+     * Check the number of brains in this pile
      */
     public int getNum()
     {
@@ -141,8 +143,6 @@ public class Brain extends Actor
                 else {
                     setImage(baseImage);
                 }
-                
-                //this.getClass().notify();
             }
             catch (Exception e)
             {

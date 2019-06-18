@@ -37,8 +37,7 @@ public class ZombieLand extends World
 
     /**
      * Load the world description file and initialize the world
-     */
-    
+     */    
     public ZombieLand()
     {  
     
@@ -70,11 +69,11 @@ public class ZombieLand extends World
     }
    
     /**
-     * Create a ZombieLand with a given size;
+     * Create a ZombieLand with a given size
      */
-    private ZombieLand(int width, int height, int cellSize)
+    protected ZombieLand(int width, int height)
     {
-        super(width, height, cellSize);
+        super(width, height, 64);
     }
 
     /**
@@ -91,7 +90,7 @@ public class ZombieLand extends World
         // Set the world width and height
         int width = Integer.parseInt(root.getAttribute("width"));
         int height = Integer.parseInt(root.getAttribute("height"));
-        ZombieLand realWorld = new ZombieLand(width, height, 64);
+        ZombieLand realWorld = new ZombieLand(width, height);
 
         // Get handles to the initial and objective description nodes
         Node initial = root.getElementsByTagName("initial").item(0);
@@ -168,7 +167,7 @@ public class ZombieLand extends World
                     }
                     
                     // Create instances at this location
-                    Constructor constructor  = objClass.getConstructor();
+                    Constructor constructor = objClass.getConstructor();
                     for (; count > 0; count--) {
                         Zombie z = (Zombie)constructor.newInstance();
                         
@@ -178,6 +177,7 @@ public class ZombieLand extends World
                                 Field nb = Zombie.class.getDeclaredField("numBrains");
                                 nb.setAccessible(true);
                                 nb.set(z, numBrains);
+                                nb.setAccessible(false);
                             }
                             catch (Exception e) {}
                         }
