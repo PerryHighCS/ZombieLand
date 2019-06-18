@@ -202,17 +202,6 @@ public abstract class Zombie extends Actor
     }
 
     /**
-     * Move forward x steps (this may look useful, but zombies don't understand numbers).
-     */
-    public final void move(int x)
-    {
-        while (x > 0 && !isDead() && !hasWon()) {
-            this.move();
-            x--;
-        }
-    }
-
-    /**
      * Turn 90 degrees to the right.
      */
     public final void turnRight()
