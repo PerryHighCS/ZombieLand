@@ -142,8 +142,6 @@ public class Brain extends Actor
                 else {
                     setImage(baseImage);
                 }
-                
-                //this.getClass().notify();
             }
             catch (Exception e)
             {

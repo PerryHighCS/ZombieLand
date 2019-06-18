@@ -1,7 +1,11 @@
 #BlueJ class context
 comment0.target=MyZombie
-comment0.text=\r\n\ Plan\ the\ MyZombie's\ actions.\ \r\n\ \r\n\ Zombies\ aren't\ that\ smart,\ in\ order\ to\ reach\ their\ goal,\ they\ must\ follow\ a\ plan\ to\ the\ \r\n\ letter.\ \ If\ the\ zombie\ runs\ into\ an\ obstacle\ that\ isn't\ accounted\ for\ in\ the\ plan,\ the\ \r\n\ zombie's\ plan\ will\ fail.\ \ If\ the\ zombie's\ plan\ runs\ out\ of\ steps,\ the\ zombie\ will\ give\r\n\ up\ and\ die.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Help\ Karl\ collect\ all\ of\ the\ brains.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=void\ plan()
-comment1.text=\r\n\ Plan\ the\ MyZombie's\ actions.\ \r\n\ \r\n\ Use\ the\ move()\ and\ turnRight()\ methods\ to\ help\ your\ MyZombie\ reach\ the\ goal.\r\n\ \r\n\ This\ method\ is\ called\ whenever\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ Greenfoot\r\n\ environment.\r\n
-numComments=2
+comment1.text=\r\n\ Karl's\ planned\ out\ actions\ to\ find\ the\ longest\ line\ of\ brains\ in\ front\ of\ him.\r\n
+comment2.params=
+comment2.target=void\ nextBrain()
+comment3.params=
+comment3.target=void\ followBrains()
+numComments=4

@@ -30,7 +30,7 @@ public class ZombieLandInfinity extends ZombieLand
     public ZombieLandInfinity(boolean brains)
     {   
         // Create a new world with 19x30 cells with a cell size of 64x64 pixels.
-        super(19, 13, 64);
+        super(19, 13);
         
         BRAINS = brains;
         

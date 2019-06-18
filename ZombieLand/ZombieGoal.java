@@ -23,9 +23,7 @@ public class ZombieGoal extends ZombieDetector
      */
     public void act() 
     {
-        synchronized (Zombie.class) {
-            super.act();
-        }
+        super.act();
         
         frame = (frame + 1) % NUM_FRAMES;
         setImage(images[frame]);
@@ -36,16 +34,7 @@ public class ZombieGoal extends ZombieDetector
      */
     public void detected()
     {
-        List<Zombie> zombies;
-        
-        synchronized (Zombie.class) {
-            zombies = getIntersectingObjects(Zombie.class);
-        }
-        
-        for (Zombie z : zombies)
-        {
-            z.win();
-        }
+        getIntersectingObjects(Zombie.class).forEach((z) -> z.win());
     }
         
     /**

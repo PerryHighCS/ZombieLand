@@ -24,16 +24,14 @@ public abstract class ZombieDetector extends Actor
      */
     public void act() 
     {
-        synchronized(Zombie.class) {
-            if (isTouching(Zombie.class)) {
-                if (isOn == false){     
-                    detected();
-                    isOn = true;
-                }
+        if (isTouching(Zombie.class)) {
+            if (isOn == false){     
+                detected();
+                isOn = true;
             }
-            else {
-                isOn = false;
-            }
+        }
+        else {
+            isOn = false;
         }
     }
     

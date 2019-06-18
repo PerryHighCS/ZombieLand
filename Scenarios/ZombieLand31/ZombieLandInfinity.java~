@@ -76,7 +76,7 @@ public class ZombieLandInfinity extends ZombieLand
                 
                 int numBrains = 0;
                 
-                if (brains) {
+                if (BRAINS) {
                     numBrains = getWidth() * getHeight();
                 }
                 

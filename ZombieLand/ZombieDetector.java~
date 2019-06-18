@@ -24,8 +24,7 @@ public abstract class ZombieDetector extends Actor
      */
     public void act() 
     {
-        synchronized(Zombie.class) {
-            if (isTouching(Zombie.class)) {
+        if (isTouching(Zombie.class)) {
                 if (isOn == false){     
                     detected();
                     isOn = true;
@@ -34,7 +33,6 @@ public abstract class ZombieDetector extends Actor
             else {
                 isOn = false;
             }
-            
     }
     
     public abstract void detected();
