@@ -1,14 +1,15 @@
 #BlueJ class context
 comment0.target=Brain
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Brain\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Brains\ are\ like\ money\ /\ markers\ /\ all\ purpose\ zombie\ goodies.\r\n\ \r\n\ @author\ bdahlem\r\n\ @version\ 1.1\r\n
 comment1.params=
 comment1.target=Brain()
-comment1.text=\r\n\ A\ disembodied\ brain.\ \ Zombies\ love\ brains.\r\n
+comment1.text=\r\n\ Create\ a\ disembodied\ brain.\ \ Zombies\ love\ brains.\r\n
 comment2.params=num
 comment2.target=Brain(int)
+comment2.text=\r\n\ Create\ a\ pile\ of\ brains.\r\n
 comment3.params=
 comment3.target=void\ act()
-comment3.text=\r\n\ Contemplates\ the\ meaning\ of\ existance;\ and\ display\ the\ number\ of\ brains\r\n\ in\ this\ cell.\r\n
+comment3.text=\r\n\ Contemplate\ the\ meaning\ of\ existance\r\n
 comment4.params=
 comment4.target=void\ addBrain()
 comment4.text=\r\n\ Add\ one\ to\ the\ number\ of\ brains\ in\ this\ pile\r\n
@@ -17,7 +18,7 @@ comment5.target=void\ setNum(int)
 comment5.text=\r\n\ Set\ the\ number\ of\ brains\ in\ this\ pile\r\n
 comment6.params=
 comment6.target=int\ getNum()
-comment6.text=\r\n\ Set\ the\ number\ of\ brains\ in\ this\ pile\r\n
+comment6.text=\r\n\ Check\ the\ number\ of\ brains\ in\ this\ pile\r\n
 comment7.params=
 comment7.target=void\ removeBrain()
 comment7.text=\r\n\ Remove\ one\ brain\ from\ this\ pile.\ If\ this\ is\ the\ last\ brain,\r\n\ remove\ the\ pile\ from\ the\ world.\r\n

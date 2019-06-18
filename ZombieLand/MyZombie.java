@@ -11,7 +11,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MyZombie extends Zombie
+public class MyZombie extends UltraZombie
 {
     /**
      * Plan the MyZombie's actions. 
@@ -23,7 +23,12 @@ public class MyZombie extends Zombie
      */
     public void plan() 
     {
-        while (true) turnRight();
+        debug();
+        move();
+        while (true) {
+            move();
+            turnAround();
+        }
         
     }
 }

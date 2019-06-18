@@ -72,7 +72,7 @@ public class ZombieLand extends World
     /**
      * Create a ZombieLand with a given size;
      */
-    private ZombieLand(int width, int height, int cellSize)
+    protected ZombieLand(int width, int height, int cellSize)
     {
         super(width, height, cellSize);
     }
@@ -168,7 +168,7 @@ public class ZombieLand extends World
                     }
                     
                     // Create instances at this location
-                    Constructor constructor  = objClass.getConstructor();
+                    Constructor constructor = objClass.getConstructor();
                     for (; count > 0; count--) {
                         Zombie z = (Zombie)constructor.newInstance();
                         
@@ -178,6 +178,7 @@ public class ZombieLand extends World
                                 Field nb = Zombie.class.getDeclaredField("numBrains");
                                 nb.setAccessible(true);
                                 nb.set(z, numBrains);
+                                nb.setAccessible(false);
                             }
                             catch (Exception e) {}
                         }

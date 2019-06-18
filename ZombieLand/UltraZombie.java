@@ -18,6 +18,10 @@ public abstract class UltraZombie extends Zombie
         super();
     }
     
+    protected UltraZombie(int numBrains) {
+        super(numBrains);
+    }
+    
     /**
      * Determine which direction the UltraZombie is facing.
      * 
@@ -25,7 +29,8 @@ public abstract class UltraZombie extends Zombie
      */
     public final int facing()
     {
-       return (getRotation() / 90) * 90;
+        debugLog();
+        return (getRotation() / 90) * 90;
     }
     
     /**
@@ -46,6 +51,7 @@ public abstract class UltraZombie extends Zombie
      */
     public final boolean isFacing(int direction) 
     {
+        debugLog();
         return facing() == direction;
     }
     
@@ -54,13 +60,10 @@ public abstract class UltraZombie extends Zombie
      */
     public final void turnLeft()
     {
-        synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                turn(-1);
-            }
-            catch (InterruptedException e) {
-            }
+        nextAct();
+        synchronized (Zombie.class) {            
+            debugLog();
+            turn(-1);
         }
     }
     
@@ -69,13 +72,10 @@ public abstract class UltraZombie extends Zombie
      */
     public final void turnAround()
     {
+        nextAct();
         synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                turn(2);
-            }
-            catch (InterruptedException e) {
-            }
+            debugLog();
+            turn(2);
         }
     }
     
@@ -92,13 +92,10 @@ public abstract class UltraZombie extends Zombie
      */
     public final void turnTo(int direction) 
     {
+        nextAct();
         synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                turn((direction - getRotation()) / 90);
-            }
-            catch (InterruptedException e) {
-            }
+            debugLog();
+            turn((direction - getRotation()) / 90);
         }
     }
     
@@ -117,33 +114,30 @@ public abstract class UltraZombie extends Zombie
      * </p>
      */
     public final boolean isRightClear() {
+        nextAct();
         synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                
-                int dir = facing();
-                int dx = 0;
-                int dy = 0;
-        
-                if (dir == EAST) {
-                    dy = 1;
-                }
-                else if (dir == SOUTH) {
-                    dx = -1;
-                }
-                else if (dir == WEST) {
-                    dy = -1;
-                }
-                else {
-                    dx = 1;
-                }
-        
-                return checkDelta("Wall", dx, dy) == null &&
-                        checkDelta(null, dx, dy) != this;
+            debugLog();
+            
+            int dir = facing();
+            int dx = 0;
+            int dy = 0;
+    
+            if (dir == EAST) {
+                dy = 1;
             }
-            catch (InterruptedException e) {
+            else if (dir == SOUTH) {
+                dx = -1;
             }
-            return false;
+            else if (dir == WEST) {
+                dy = -1;
+            }
+            else {
+                dx = 1;
+            }
+    
+            return checkDelta("Wall", dx, dy) == null &&
+                    checkDelta(null, dx, dy) != this;
+            
         }
     }
     
@@ -162,33 +156,29 @@ public abstract class UltraZombie extends Zombie
      * </p>
      */
     public final boolean isLeftClear() {
+        nextAct();
         synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                
-                int dir = facing();
-                int dx = 0;
-                int dy = 0;
-        
-                if (dir == EAST) {
-                    dy = -1;
-                }
-                else if (dir == SOUTH) {
-                    dx = 1;
-                }
-                else if (dir == WEST) {
-                    dy = 1;
-                }
-                else {
-                    dx = -1;
-                }
-        
-                return checkDelta("Wall", dx, dy) == null &&
-                        checkDelta(null, dx, dy) != this;
+            debugLog();
+            
+            int dir = facing();
+            int dx = 0;
+            int dy = 0;
+    
+            if (dir == EAST) {
+                dy = -1;
             }
-            catch (InterruptedException e) {
+            else if (dir == SOUTH) {
+                dx = 1;
             }
-            return false;
+            else if (dir == WEST) {
+                dy = 1;
+            }
+            else {
+                dx = -1;
+            }
+    
+            return checkDelta("Wall", dx, dy) == null &&
+                    checkDelta(null, dx, dy) != this;
         }
     }
     
@@ -207,33 +197,29 @@ public abstract class UltraZombie extends Zombie
      * </p>
      */
     public final boolean isBackClear() {
+        nextAct();
         synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                
-                int dir = facing();
-                int dx = 0;
-                int dy = 0;
-        
-                if (dir == EAST) {
-                    dx = -1;
-                }
-                else if (dir == SOUTH) {
-                    dy = -1;
-                }
-                else if (dir == WEST) {
-                    dx = 1;
-                }
-                else {
-                    dy = 1;
-                }
-        
-                return checkDelta("Wall", dx, dy) == null &&
-                        checkDelta(null, dx, dy) != this;
+            debugLog();
+            
+            int dir = facing();
+            int dx = 0;
+            int dy = 0;
+    
+            if (dir == EAST) {
+                dx = -1;
             }
-            catch (InterruptedException e) {
+            else if (dir == SOUTH) {
+                dy = -1;
             }
-            return false;
+            else if (dir == WEST) {
+                dx = 1;
+            }
+            else {
+                dy = 1;
+            }
+    
+            return checkDelta("Wall", dx, dy) == null &&
+                    checkDelta(null, dx, dy) != this;
         }
     }
     
@@ -253,34 +239,30 @@ public abstract class UltraZombie extends Zombie
      * @param direction The direction to look for a wall (NORTH, SOUTH, EAST, or WEST)
      */
     public final boolean isDirectionClear(int direction) {
+        nextAct();
         synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                
-                int dx = 0;
-                int dy = 0;
-                
-                switch (direction) {
-                    case EAST:
-                        dx = 1;
-                        break;
-                    case SOUTH:
-                        dy = 1;
-                        break;
-                    case WEST:
-                        dx = -1;
-                        break;
-                    case NORTH:
-                        dy = -1;
-                        break;
-                }
-                
-                return checkDelta("Wall", dx, dy) == null &&
-                        checkDelta(null, dx, dy) != this;
+            debugLog();
+            
+            int dx = 0;
+            int dy = 0;
+            
+            switch (direction) {
+                case EAST:
+                    dx = 1;
+                    break;
+                case SOUTH:
+                    dy = 1;
+                    break;
+                case WEST:
+                    dx = -1;
+                    break;
+                case NORTH:
+                    dy = -1;
+                    break;
             }
-            catch (InterruptedException e) {
-            }
-            return false;
+            
+            return checkDelta("Wall", dx, dy) == null &&
+                    checkDelta(null, dx, dy) != this;
         }
     }
     

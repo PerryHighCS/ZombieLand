@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=ZombieGoal
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ ZombieGoal\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Zombies\ like\ to\ hang\ around\ ZombieGoals.\ Like\ a\ mall\ foodcourt\ to\ a\ 90s\ teenager.\r\n\ \r\n\ @author\ bdahlem\r\n\ @version\ 1.0\r\n
 comment1.params=
 comment1.target=ZombieGoal()
 comment2.params=

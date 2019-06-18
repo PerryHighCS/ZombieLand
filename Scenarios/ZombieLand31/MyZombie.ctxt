@@ -2,6 +2,11 @@
 comment0.target=MyZombie
 comment0.text=\r\n\ Help\ Karl\ collect\ all\ of\ the\ brains.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
-comment1.target=void\ plan()
-comment1.text=\r\n\ Karl's\ planned\ out\ actions\ to\ find\ his\ way\ to\ the\ ZombieGoal.\r\n
-numComments=2
+comment1.target=MyZombie()
+comment2.params=brains
+comment2.target=MyZombie(int)
+comment2.text=\r\n\ Give\ Karl\ some\ brains\r\n
+comment3.params=
+comment3.target=void\ plan()
+comment3.text=\r\n\ Karl's\ planned\ out\ actions\ to\ find\ his\ way\ to\ the\ ZombieGoal.\r\n
+numComments=4

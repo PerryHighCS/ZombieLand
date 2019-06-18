@@ -1,20 +1,19 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
- * Write a description of class ZombieGoal here.
+ * Zombies like to hang around ZombieGoals. Like a mall foodcourt to a 90s teenager.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author bdahlem
+ * @version 1.0
  */
 public class ZombieGoal extends ZombieDetector
 {
     private int frame;
     private static final int NUM_FRAMES = 6;
-    private GreenfootImage[] images;
+    private static GreenfootImage[] images = loadFrames("Goal");
     
-    public ZombieGoal() {
-        images = loadFrames("Goal");
-        
+    public ZombieGoal() {        
         frame = (int)(Math.random() * NUM_FRAMES);
     }
     
@@ -24,7 +23,9 @@ public class ZombieGoal extends ZombieDetector
      */
     public void act() 
     {
-        super.act();
+        synchronized (Zombie.class) {
+            super.act();
+        }
         
         frame = (frame + 1) % NUM_FRAMES;
         setImage(images[frame]);
@@ -35,7 +36,13 @@ public class ZombieGoal extends ZombieDetector
      */
     public void detected()
     {
-        for (Zombie z : getIntersectingObjects(Zombie.class))
+        List<Zombie> zombies;
+        
+        synchronized (Zombie.class) {
+            zombies = getIntersectingObjects(Zombie.class);
+        }
+        
+        for (Zombie z : zombies)
         {
             z.win();
         }
@@ -45,7 +52,7 @@ public class ZombieGoal extends ZombieDetector
      * Create and fill an array of Greenfoot images by loading the files with
      * a given name followed by frame numbers
      */
-    private GreenfootImage[] loadFrames(String name)
+    private static GreenfootImage[] loadFrames(String name)
     {
         GreenfootImage[] imageArr = new GreenfootImage[NUM_FRAMES];
         

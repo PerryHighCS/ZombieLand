@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Wall here.
+ * Walls block zombies.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author bdahlem
+ * @version 1.1
  */
 public class Wall extends Actor
 {
@@ -13,9 +13,6 @@ public class Wall extends Actor
      */
     public Wall()
     {
-        GreenfootImage img = this.getImage();
-        img.scale(64, 64);
-        
     }
     
     /**
@@ -23,6 +20,5 @@ public class Wall extends Actor
      */
     public void act() 
     {
-        // Add your action code here.
     }    
 }

@@ -9,6 +9,7 @@ import java.net.URLClassLoader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.Semaphore;
 
 /**
  * A programmable zombie character.
@@ -20,9 +21,9 @@ public abstract class Zombie extends Actor
 {
     private int frame = 0;
     private int deadFrame = 0;
-    private int NUM_FRAMES = 4;
-    private int moveAngle = 0;
-    private GreenfootImage[][] images;
+    
+    private static final int NUM_FRAMES = 4;
+    private static final GreenfootImage[][] images = preloadImages();
 
     public static final int ZOMBIE_GROAN = 0;
     public static final int ZOMBIE_MED_GROAN = 1;
@@ -32,7 +33,7 @@ public abstract class Zombie extends Actor
     public static final int ZOMBIE_SCREAM = 5;
     public static final int NUM_SOUNDS = 6;
 
-    private static GreenfootSound[] sounds;
+    private static GreenfootSound[] sounds = preloadSounds();
 
     private Thread thinker;
 
@@ -42,71 +43,69 @@ public abstract class Zombie extends Actor
     private volatile boolean won = false;
 
     private volatile boolean redBox = false;
+    
+    private boolean debugMode = false;
 
+    private static Semaphore actMeter = new Semaphore(1, true);
+    
     /**
      * Make a new zombie, you evil person.
      */
-    public Zombie() {
-        // Prepare the zombie walking animation frames
-        images = new GreenfootImage[5][];
-        preloadImages();
-        preloadSounds();
-
-        thinker = new Thread(new Runnable()
+    public Zombie() {        
+        thinker = new Thread(() ->
             {
-                public void run() {
-                    // Wait until the zombie is in a world
-                    while (getWorld() == null);
+                try {                        
+                    nextAct();    // Wait for an act signal before beginning the plan
 
-                    synchronized (Zombie.class) {
-                        try {                        
-                            Zombie.class.wait();    // Wait for an act signal before beginning the plan
+                    plan();                 // Follow the plan
 
-                            plan();                 // Follow the plan
+                    nextAct();    // Wait for an act signal after the plan ends for everything to settle down
 
-                            Zombie.class.wait();    // Wait for an act signal after the plan ends for everything to settle down
-
-                            if (stillTrying()) {    // If the Zombie hasn't solved its problems,
-                                die();               // Kill it
-                            }
-                        }
-                        catch (InterruptedException | java.lang.IllegalStateException e) {
-                            // If the plan is interrupted, or the zombie was removed, causing an illegal state,
-                            // end the zombie
-                            //if (stillTrying())
-                            die();
-                        }
+                    if (stillTrying()) {    // If the Zombie hasn't solved its problems,
+                        die();               // Kill it
                     }
+                }
+                catch (java.lang.IllegalStateException e) {
+                    // If the plan is interrupted, or the zombie was removed, causing an illegal state,
+                    // end the zombie
+                    //if (stillTrying())
+                    die();
                 }
             }
         );
-
-        thinker.start();
     }
 
+    protected Zombie(int numBrains) {
+        this();
+        this.numBrains = numBrains;
+    }
+    
     /**
      * Perform one animation step.
      */
     public final void act()
     {
-        synchronized (Zombie.class) {
-            frame = (frame + 1) % NUM_FRAMES; // Show the next animation frame
-            showAnimationFrame();
+        if (thinker.getState() == Thread.State.NEW) {
+            thinker.start();
+        }
+            
+        frame = (frame + 1) % NUM_FRAMES; // Show the next animation frame
+        showAnimationFrame();
 
-            if (!undead || won) {  // If the zombie is no more, stop doing things.                
-                if (!thinker.isInterrupted())
-                    thinker.interrupt();
-                return;
-            }
+        if (!undead || won) {  // If the zombie is no more, stop doing things.                
+            if (!thinker.isInterrupted())
+                thinker.interrupt();
+            return;
+        }
 
-            // Every other animation frame, perform one action
-            if(frame % 2 == 0) {
-                Zombie.class.notify();  // release the lock to perform the action
-
-                if (undead && Math.random() < 0.001) {            // Play a random sound randomly if still running
-                    sounds[(int)(Math.random() * 2)].play();
-                }
-            }
+        // Every other animation frame, perform one action
+        if(frame % 2 == 0) {
+            actMeter.release();  // release the lock to perform the next action
+        }
+        
+        
+        if (undead && Math.random() < 0.001) {            // Play a random sound randomly if still running
+            sounds[(int)(Math.random() * 2)].play();
         }
     }
 
@@ -147,23 +146,20 @@ public abstract class Zombie extends Actor
      */
     public final void move()
     {
+        nextAct();    // Wait for an act signal
         synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();    // Wait for an act signal
+            debugLog();
 
-                if (stillTrying()) {
-                    boolean success = handleWall(); 
-                    success = success && handleBucket();
-                    if (success) {
-                        super.move(1);
-                    }
-                    else {
-                        undead = false;
-                        die();
-                    }
+            if (stillTrying()) {
+                boolean success = handleWall(); 
+                success = success && handleBucket();
+                if (success) {
+                    super.move(1);
                 }
-            }
-            catch (InterruptedException e) {
+                else {
+                    undead = false;
+                    die();
+                }
             }
         }
     }
@@ -184,8 +180,10 @@ public abstract class Zombie extends Actor
      */
     public final void turnRight()
     {
-        synchronized (Zombie.class) {            
-            turn(1);            
+        nextAct();
+        synchronized (Zombie.class) {
+            debugLog();
+            turn(1);     
         }
     }
 
@@ -196,34 +194,29 @@ public abstract class Zombie extends Actor
     public final void turn(int turns)
     {        
         synchronized (Zombie.class) {
-            try 
-            {
-                Zombie.class.wait();
+            int degrees = turns * 90;
 
-                int degrees = turns * 90;
-
-                if (stillTrying()) {
-                    getImage().setTransparency(0);
-                    super.turn(degrees);
-                    showAnimationFrame();
-                    getImage().setTransparency(255);
-                }
-            }
-            catch (InterruptedException e) {
+            if (stillTrying()) {
+                //getImage().setTransparency(0);
+                super.turn(degrees);
+                showAnimationFrame();
+                //getImage().setTransparency(255);
             }
         }
     }   
 
     /**
-     * Pick up brains if they exist.  End if not.
+     * Pick up brains if they exist. End if not.
      */
     public final void takeBrain()
     {        
         ClassLoader cl = this.getClass().getClassLoader();
+        
+        nextAct();
 
         synchronized (Zombie.class) {
             try {
-                Zombie.class.wait();
+                debugLog();
                 if (stillTrying()) {
                     Class brainClass = cl.loadClass("Brain");
                     Actor a = getOneIntersectingObject(brainClass);
@@ -239,7 +232,7 @@ public abstract class Zombie extends Actor
                     }
                 }
             }
-            catch (ClassNotFoundException | InterruptedException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             }
         }
     }
@@ -249,12 +242,13 @@ public abstract class Zombie extends Actor
      */
     public final void putBrain()
     {
-
         ClassLoader cl = this.getClass().getClassLoader();
+        
+        nextAct();
 
         synchronized (Zombie.class) {
             try {
-                Zombie.class.wait();
+                debugLog();
                 if (stillTrying()) {
                     if (numBrains > 0) {
                         numBrains--;
@@ -279,7 +273,7 @@ public abstract class Zombie extends Actor
                     }
                 }
             }
-            catch (ClassNotFoundException | InterruptedException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 //                ((ZombieLand)getWorld()).finish("Zombie no have brain.", false);
                 //                e.printStackTrace();
             }
@@ -293,6 +287,7 @@ public abstract class Zombie extends Actor
     public final boolean isTouching(String classname) {
         List<Actor> objects = getObjectsAtOffset(0, 0, null);
 
+        debugLog();
         for (Actor a : objects) {
             if (a.getClass().getName().equals(classname)){
                 return true;
@@ -308,6 +303,7 @@ public abstract class Zombie extends Actor
     public final void removeTouching(String classname) {
         List<Actor> objects = getObjectsAtOffset(0, 0, null);
 
+        debugLog();
         for (Actor a : objects) {
             if (a.getClass().getName().equals(classname)){
                 getWorld().removeObject(a);
@@ -332,15 +328,10 @@ public abstract class Zombie extends Actor
      */
     public final boolean haveBrains()
     {
+        nextAct();
         synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                return numBrains > 0;
-            }
-            catch (InterruptedException e) {
-            }
-
-            return false;
+            debugLog();
+            return numBrains > 0;
         }
     }
 
@@ -359,8 +350,10 @@ public abstract class Zombie extends Actor
      * </p>
      */
     public final boolean isBrainHere() {
+        nextAct();
         synchronized (Zombie.class)
         {
+            debugLog();
             return (isTouching("Brain"));
         }
     }
@@ -380,15 +373,11 @@ public abstract class Zombie extends Actor
      * </p>
      */
     public final boolean isFrontClear() {
+        nextAct();
         synchronized (Zombie.class) {
-            try {
-                Zombie.class.wait();
-                return checkFront("Wall", 1) == null &&
-                checkFront(null, 1) != this;
-            }
-            catch (InterruptedException e) {
-            }
-            return false;
+            debugLog();
+            return checkFront("Wall", 1) == null &&
+                    checkFront(null, 1) != this;
         }
     }
 
@@ -398,15 +387,12 @@ public abstract class Zombie extends Actor
     public final void die()
     {
         synchronized (Zombie.class) {
-            try {
-                if (undead) {
-                    Zombie.class.wait();
-                    drawRed();
-                    undead = false;
-                    sounds[ZOMBIE_SCREAM].play();
-                }
-            }
-            catch (InterruptedException e) {
+            if (undead) {
+                nextAct();
+                debugLog();
+                drawRed();
+                undead = false;
+                sounds[ZOMBIE_SCREAM].play();
             }
         }
     }
@@ -445,6 +431,7 @@ public abstract class Zombie extends Actor
      */
     public final boolean isDead()
     {
+        debugLog();
         return undead == false;
     }
 
@@ -454,6 +441,7 @@ public abstract class Zombie extends Actor
     public final void win()
     {
         synchronized (Zombie.class) {
+            debugLog();
             if (!won && undead) {
                 won = true;
                 sounds[ZOMBIE_GRUNT].play();
@@ -477,9 +465,13 @@ public abstract class Zombie extends Actor
      */
     public boolean hasWon()
     {
+        debugLog();
         return won;
     }
 
+    /**
+     * Give this zombie a red background to indicate an error.
+     */
     public void drawRed()
     {
         redBox = true;
@@ -658,21 +650,25 @@ public abstract class Zombie extends Actor
     /**
      * Load the zombie walking images for faster shambling animations.
      */
-    private void preloadImages()
+    private static GreenfootImage[][] preloadImages()
     {
+        GreenfootImage[][] images = new GreenfootImage[5][];
+        
         images[0] = loadImages("zombie-right");
         images[1] = loadImages("zombie-down");
         images[2] = loadImages("zombie-left");
         images[3] = loadImages("zombie-up");
 
         images[4] = loadImages("zombie-dead");
+        
+        return images;
     }
 
     /**
      * Create and fill an array of Greenfoot images by loading the files with
      * a given name followed by frame numbers
      */
-    private GreenfootImage[] loadImages(String name)
+    private static GreenfootImage[] loadImages(String name)
     {
         GreenfootImage[] imageArr = new GreenfootImage[NUM_FRAMES];
 
@@ -686,16 +682,65 @@ public abstract class Zombie extends Actor
     /**
      * Load the zombie sounds for faster playback.
      */
-    private void preloadSounds()
+    private static GreenfootSound[] preloadSounds()
     {
-        if (sounds == null) {
-            sounds = new GreenfootSound[NUM_SOUNDS];
-            sounds[ZOMBIE_GROAN] = new GreenfootSound("ZombieGroan.wav");
-            sounds[ZOMBIE_MED_GROAN] = new GreenfootSound("ZombieMedGroan.wav");
-            sounds[ZOMBIE_LONG_GROAN] = new GreenfootSound("ZombieLongGroan.wav");
-            sounds[ZOMBIE_LOUD_GROAN] = new GreenfootSound("ZombieLoudGroan.wav");
-            sounds[ZOMBIE_GRUNT] = new GreenfootSound("ZombieGrunt.wav");
-            sounds[ZOMBIE_SCREAM] = new GreenfootSound("ZombieScream.wav");
+        GreenfootSound[] sounds;
+        
+        sounds = new GreenfootSound[NUM_SOUNDS];
+        sounds[ZOMBIE_GROAN] = new GreenfootSound("ZombieGroan.wav");
+        sounds[ZOMBIE_MED_GROAN] = new GreenfootSound("ZombieMedGroan.wav");
+        sounds[ZOMBIE_LONG_GROAN] = new GreenfootSound("ZombieLongGroan.wav");
+        sounds[ZOMBIE_LOUD_GROAN] = new GreenfootSound("ZombieLoudGroan.wav");
+        sounds[ZOMBIE_GRUNT] = new GreenfootSound("ZombieGrunt.wav");
+        sounds[ZOMBIE_SCREAM] = new GreenfootSound("ZombieScream.wav");
+        
+        return sounds;
+    }
+    
+    
+    /**
+     * Make the poor zombie write out a log of every action it takes.
+     */
+    public void debug() 
+    {
+        System.out.print("\u000c");
+        debugMode = true;
+    }
+    
+    /**
+     * Print out a line of debugging information
+     */
+    public void debugLog()
+    {
+        if (!debugMode) {
+            return;
         }
+        
+        StackTraceElement[] trace = (new Throwable()).getStackTrace();
+        
+        int methodPos = 1;
+        int callerPos = 2;
+        
+        StackTraceElement method = trace[methodPos];
+        StackTraceElement caller = trace[callerPos];
+        
+        if (!method.getClassName().equals(caller.getClassName()) &&
+            caller.getClassName().equals("MyZombie")) {
+            synchronized(System.out) {
+                System.out.print("(" + caller.getFileName() + ":" + caller.getLineNumber() + ")");
+                System.out.print(caller.getClassName() + "." + caller.getMethodName() +"()");
+                System.out.println(" " + method.getMethodName());
+            }
+        }
+    }
+    
+    /**
+     * Block the current thread till the next act tick.
+     */
+    protected void nextAct() {
+        try {
+            actMeter.acquire();
+        }
+        catch (InterruptedException e) {}
     }
 }
